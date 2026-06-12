@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hugo-ui.local/ai-contract/schema/component-contract.schema.json",
+  "title": "Hugo UI component AI contract",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "packageName",
+    "packageVersion",
+    "componentName",
+    "importName",
+    "sourceFiles",
+    "props",
+    "examples",
+    "forbiddenProps",
+    "designMappings",
+    "tokenPolicy",
+    "a11yRules",
+    "generationRules",
+    "validationRules",
+    "needsReview"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "component-contract/v1"
+    },
+    "packageName": {
+      "type": "string"
+    },
+    "packageVersion": {
+      "type": "string"
+    },
+    "componentName": {
+      "type": "string"
+    },
+    "importName": {
+      "type": "string"
+    },
+    "sourceFiles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "props": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "required", "values", "defaultValue", "description", "source"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "defaultValue": {
+            "type": ["string", "number", "boolean", "null"]
+          },
+          "description": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "minItems": 1
+    },
+    "examples": {
+      "type": "array"
+    },
+    "forbiddenProps": {
+      "type": "array"
+    },
+    "discouragedProps": {
+      "type": "array"
+    },
+    "designMappings": {
+      "type": "object"
+    },
+    "tokenPolicy": {
+      "type": "object"
+    },
+    "a11yRules": {
+      "type": "array"
+    },
+    "generationRules": {
+      "type": "array"
+    },
+    "validationRules": {
+      "type": "array"
+    },
+    "needsReview": {
+      "type": "boolean"
+    },
+    "needsReviewReason": {
+      "type": ["string", "null"]
+    }
+  },
+  "additionalProperties": true
+}

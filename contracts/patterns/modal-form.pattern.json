@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "pattern-contract/v1",
+  "patternName": "modal-form",
+  "frameIds": ["frame-edit-profile"],
+  "description": "A modal containing a short description, form fields, and footer actions.",
+  "allowedComponents": ["Modal", "Input", "Button"],
+  "structure": [
+    {
+      "slot": "root",
+      "component": "Modal",
+      "rules": ["Use the mapped modal node as the top-level component."]
+    },
+    {
+      "slot": "body",
+      "components": ["Input"],
+      "rules": [
+        "Preserve fixture field order.",
+        "Use fixture labels for Input labels.",
+        "Treat fixture field values as design sample content, not runtime Input values."
+      ]
+    },
+    {
+      "slot": "footer",
+      "components": ["Button"],
+      "rules": ["Use secondary actions before primary actions.", "Do not encode colors directly."]
+    }
+  ],
+  "generationRules": [
+    "Import mapped components from @hugo-ui/mui.",
+    "Use only props listed in the component contracts.",
+    "Do not hard-code design sample field values into Input value props.",
+    "Do not pass raw style objects, className, css, sx, or raw color props.",
+    "Represent layout through component structure instead of pixel-perfect CSS.",
+    "Run validate_generated_code before presenting generated React as usable."
+  ]
+}

@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify vendored hugo-ui contract
+        run: npm run contract:verify:hugo-ui
+
+      - name: Build context pack
+        run: npm run context:pack
+
+      - name: Audit captured MCP run candidate
+        run: npm run audit:generated
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Validate passing sample
+        run: npm run validate
+
+      - name: Validate failing sample
+        run: npm run validate:bad
+
+      - name: Build demo
+        run: npm run build
+
+      - name: Check generated artifacts are committed
+        run: git diff --exit-code

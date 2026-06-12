@@ -1,0 +1,322 @@
+{
+  "schemaVersion": "token-map-contract/v1",
+  "packageName": "@hugo-ui/mui",
+  "packageVersion": "1.0.2",
+  "sourceFiles": [
+    "packages/mui/src/styles/color.ts",
+    "packages/mui/src/styles/colorRoles.ts",
+    "packages/mui/src/styles/theme.ts"
+  ],
+  "rawPalette": [
+    {
+      "name": "TEXT",
+      "value": "#49494C",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "DARK_PURPLE",
+      "value": "#350B59",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "MID_PURPLE",
+      "value": "#5D3C7A",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "PURPLE_GRAPE",
+      "value": "#7D3F98",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "PURPLE_PLUM",
+      "value": "#9955C6",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "LAVENDER",
+      "value": "#DA99FF",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "LIGHT_PURPLE",
+      "value": "#EED3FF",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "SUCCESS_GREEN",
+      "value": "#008805",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "SUCCESS_GREEN_BG",
+      "value": "#F2FAF3",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "ERROR_OR_DESTRUCT",
+      "value": "#CB2A2A",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "DESTRUCT_STATE_1",
+      "value": "#982020",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "DESTRUCT_STATE_2",
+      "value": "#651515",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "ERROR_BG",
+      "value": "#FCF4F4",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "BLUE",
+      "value": "#1573D4",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "ALERT",
+      "value": "#EB6A00",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "NEUTRAL_PLUM",
+      "value": "#F6F1FF",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "NEUTRAL_LIGHT_PLUM",
+      "value": "#F4F2F6",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "NEUTRAL_DARK_PLUM",
+      "value": "#A19ABA",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "NEUTRAL_DARK_GREY",
+      "value": "#CCCCCC",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "NEUTRAL_MID_GREY",
+      "value": "#F2F2F2",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "NEUTRAL_LIGHT_GREY",
+      "value": "#FAFAFA",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "NEUTRAL_WHITE",
+      "value": "#FFFFFF",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "TEXT_HEADER",
+      "value": "#282036",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "NEUTRAL_GREY_200",
+      "value": "#F2F2F2",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "NEUTRAL_GREY_500",
+      "value": "#E0E0E0",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "NEUTRAL_GREY_600",
+      "value": "#C8C8C8",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "NEUTRAL_GREY_800",
+      "value": "#9E9E9E",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "NEUTRAL_GREY_1100",
+      "value": "#5C5C5C",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "NEUTRAL_GREY_1200",
+      "value": "#3D3D3D",
+      "source": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "PLUM_100",
+      "value": "#F6F1FF",
+      "source": "packages/mui/src/styles/color.ts"
+    }
+  ],
+  "semanticColorRoles": [
+    {
+      "path": "brand.primary",
+      "rawToken": "PURPLE_PLUM",
+      "value": "#9955C6",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "brand.accent",
+      "rawToken": "PURPLE_GRAPE",
+      "value": "#7D3F98",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "brand.deep",
+      "rawToken": "DARK_PURPLE",
+      "value": "#350B59",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "text.primary",
+      "rawToken": "TEXT_HEADER",
+      "value": "#282036",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "text.default",
+      "rawToken": "TEXT",
+      "value": "#49494C",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "text.inverse",
+      "rawToken": "NEUTRAL_WHITE",
+      "value": "#FFFFFF",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "text.subtle",
+      "rawToken": "NEUTRAL_GREY_800",
+      "value": "#9E9E9E",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "text.disabled",
+      "rawToken": "NEUTRAL_DARK_GREY",
+      "value": "#CCCCCC",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "surface.default",
+      "rawToken": "NEUTRAL_WHITE",
+      "value": "#FFFFFF",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "surface.subtle",
+      "rawToken": "NEUTRAL_LIGHT_GREY",
+      "value": "#FAFAFA",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "surface.inverse",
+      "rawToken": "DARK_PURPLE",
+      "value": "#350B59",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "surface.tinted",
+      "rawToken": "PLUM_100",
+      "value": "#F6F1FF",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "surface.tintedStrong",
+      "rawToken": "LAVENDER",
+      "value": "#DA99FF",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "border.default",
+      "rawToken": "NEUTRAL_DARK_GREY",
+      "value": "#CCCCCC",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "border.strong",
+      "rawToken": "NEUTRAL_GREY_800",
+      "value": "#9E9E9E",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "focus.ring",
+      "rawToken": "BLUE",
+      "value": "#1573D4",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "focus.ringOnDark",
+      "rawToken": "NEUTRAL_WHITE",
+      "value": "#FFFFFF",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "status.success",
+      "rawToken": "SUCCESS_GREEN",
+      "value": "#008805",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "status.warning",
+      "rawToken": "ALERT",
+      "value": "#EB6A00",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "status.error",
+      "rawToken": "ERROR_OR_DESTRUCT",
+      "value": "#CB2A2A",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "status.destructStrong",
+      "rawToken": "DESTRUCT_STATE_1",
+      "value": "#982020",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "status.destructActive",
+      "rawToken": "DESTRUCT_STATE_2",
+      "value": "#651515",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    },
+    {
+      "path": "accent.soft",
+      "rawToken": "LAVENDER",
+      "value": "#DA99FF",
+      "source": "packages/mui/src/styles/colorRoles.ts"
+    }
+  ],
+  "themeExposures": [
+    {
+      "name": "hugoUITheme.hugoUIColors",
+      "source": "packages/mui/src/styles/theme.ts",
+      "mapsFrom": "packages/mui/src/styles/color.ts"
+    },
+    {
+      "name": "hugoUITheme.hugoUIColorRoles",
+      "source": "packages/mui/src/styles/theme.ts",
+      "mapsFrom": "packages/mui/src/styles/colorRoles.ts"
+    }
+  ],
+  "generationPolicy": [
+    "AI-generated component usage should prefer semantic color roles through component props and theme.hugoUIColorRoles.",
+    "Do not hardcode raw palette values in generated component usage.",
+    "Use raw palette names only when documenting or updating the design-token layer itself."
+  ],
+  "needsReview": false,
+  "generatedAt": "2026-06-18T16:25:52.214Z",
+  "sourceCommit": "28b72aee375fb36e8b5b75e591b4a5c2725c8f78"
+}

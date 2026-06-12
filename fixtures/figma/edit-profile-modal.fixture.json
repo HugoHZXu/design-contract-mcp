@@ -1,0 +1,458 @@
+{
+  "schemaVersion": "figma-like-fixture/v2",
+  "source": "normalized-from-local-figma-api-shaped-fixture",
+  "file": {
+    "id": "mock-profile-settings-file",
+    "name": "Profile Settings Demo"
+  },
+  "rawSource": {
+    "schemaVersion": "figma-file-snapshot-mock/v1",
+    "source": "local-figma-api-shaped-fixture",
+    "path": "fixtures/figma/raw/edit-profile-modal.figma-file.mock.json",
+    "capturedAt": "2026-06-18T00:00:00.000Z",
+    "documentRootId": "0:0"
+  },
+  "frames": [
+    {
+      "id": "frame-edit-profile",
+      "name": "Edit Profile Modal",
+      "type": "FRAME",
+      "description": "Captured Figma-like design data for a single modal form demo.",
+      "layout": {
+        "width": 686,
+        "height": 796,
+        "mode": "vertical",
+        "align": "start",
+        "itemSpacing": 16,
+        "gapToken": "space.4",
+        "padding": {
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0
+        },
+        "primaryAxisSizingMode": "FIXED",
+        "counterAxisSizingMode": "FIXED",
+        "boundVariables": {
+          "itemSpacing": {
+            "type": "VARIABLE_ALIAS",
+            "id": "space.4"
+          }
+        }
+      },
+      "absoluteBoundingBox": {
+        "x": 0,
+        "y": 0,
+        "width": 686,
+        "height": 796
+      },
+      "absoluteRenderBounds": {
+        "x": 0,
+        "y": 0,
+        "width": 686,
+        "height": 796
+      },
+      "children": [
+        {
+          "id": "node-modal",
+          "name": "Modal",
+          "type": "INSTANCE",
+          "componentId": "component-modal-transactional-medium",
+          "componentSet": "Dialog/Modal",
+          "componentMetadata": {
+            "key": "mock-component-modal",
+            "name": "Dialog/Modal",
+            "componentSetId": "component-set-modal",
+            "componentSetName": "Dialog/Modal",
+            "remote": true
+          },
+          "componentProperties": {
+            "Type": {
+              "type": "VARIANT",
+              "value": "transactional"
+            },
+            "State": {
+              "type": "VARIANT",
+              "value": "open"
+            },
+            "Size": {
+              "type": "VARIANT",
+              "value": "medium"
+            }
+          },
+          "text": {
+            "title": "Edit profile",
+            "description": "Edit your profile by changing the information below."
+          },
+          "layout": {
+            "width": 542,
+            "height": 636,
+            "mode": "vertical",
+            "align": "start",
+            "itemSpacing": 16,
+            "gapToken": "space.4",
+            "padding": {
+              "left": 32,
+              "right": 32,
+              "top": 32,
+              "bottom": 24
+            },
+            "primaryAxisSizingMode": "AUTO",
+            "counterAxisSizingMode": "FIXED",
+            "boundVariables": {
+              "itemSpacing": {
+                "type": "VARIABLE_ALIAS",
+                "id": "space.4"
+              },
+              "paddingLeft": {
+                "type": "VARIABLE_ALIAS",
+                "id": "space.8"
+              },
+              "paddingRight": {
+                "type": "VARIABLE_ALIAS",
+                "id": "space.8"
+              },
+              "paddingTop": {
+                "type": "VARIABLE_ALIAS",
+                "id": "space.8"
+              },
+              "paddingBottom": {
+                "type": "VARIABLE_ALIAS",
+                "id": "space.6"
+              }
+            }
+          },
+          "absoluteBoundingBox": {
+            "x": 72,
+            "y": 80,
+            "width": 542,
+            "height": 636
+          },
+          "absoluteRenderBounds": {
+            "x": 72,
+            "y": 80,
+            "width": 542,
+            "height": 636
+          },
+          "overrides": [
+            {
+              "id": "node-modal-title",
+              "overriddenFields": [
+                "characters"
+              ]
+            },
+            {
+              "id": "node-modal-description",
+              "overriddenFields": [
+                "characters"
+              ]
+            }
+          ],
+          "children": [
+            {
+              "id": "node-input-first-name",
+              "name": "Input/Text",
+              "type": "INSTANCE",
+              "componentId": "component-input-text",
+              "componentSet": "Form/Input",
+              "componentMetadata": {
+                "key": "mock-component-input",
+                "name": "Form/Input",
+                "componentSetId": "component-set-input",
+                "componentSetName": "Form/Input",
+                "remote": true
+              },
+              "componentProperties": {
+                "Filled": {
+                  "type": "BOOLEAN",
+                  "value": true
+                },
+                "Required": {
+                  "type": "BOOLEAN",
+                  "value": false
+                },
+                "State": {
+                  "type": "VARIANT",
+                  "value": "Rest"
+                },
+                "Background": {
+                  "type": "VARIANT",
+                  "value": "White"
+                }
+              },
+              "text": {
+                "label": "First name",
+                "value": "Laura"
+              },
+              "layout": {
+                "width": 478,
+                "height": 76,
+                "mode": "vertical",
+                "itemSpacing": 8,
+                "gapToken": "space.2",
+                "boundVariables": {
+                  "itemSpacing": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "space.2"
+                  }
+                }
+              },
+              "absoluteBoundingBox": {
+                "x": 104,
+                "y": 198,
+                "width": 478,
+                "height": 76
+              },
+              "absoluteRenderBounds": {
+                "x": 104,
+                "y": 198,
+                "width": 478,
+                "height": 76
+              },
+              "overrides": [
+                {
+                  "id": "node-input-first-name-label",
+                  "overriddenFields": [
+                    "characters"
+                  ]
+                },
+                {
+                  "id": "node-input-first-name-value",
+                  "overriddenFields": [
+                    "characters"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "node-input-last-name",
+              "name": "Input/Text",
+              "type": "INSTANCE",
+              "componentId": "component-input-text",
+              "componentSet": "Form/Input",
+              "componentMetadata": {
+                "key": "mock-component-input",
+                "name": "Form/Input",
+                "componentSetId": "component-set-input",
+                "componentSetName": "Form/Input",
+                "remote": true
+              },
+              "componentProperties": {
+                "Filled": {
+                  "type": "BOOLEAN",
+                  "value": true
+                },
+                "Required": {
+                  "type": "BOOLEAN",
+                  "value": false
+                },
+                "State": {
+                  "type": "VARIANT",
+                  "value": "Rest"
+                },
+                "Background": {
+                  "type": "VARIANT",
+                  "value": "White"
+                }
+              },
+              "text": {
+                "label": "Last name",
+                "value": "Chen"
+              },
+              "layout": {
+                "width": 478,
+                "height": 76,
+                "mode": "vertical",
+                "itemSpacing": 8,
+                "gapToken": "space.2",
+                "boundVariables": {
+                  "itemSpacing": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "space.2"
+                  }
+                }
+              },
+              "absoluteBoundingBox": {
+                "x": 104,
+                "y": 290,
+                "width": 478,
+                "height": 76
+              },
+              "absoluteRenderBounds": {
+                "x": 104,
+                "y": 290,
+                "width": 478,
+                "height": 76
+              },
+              "overrides": [
+                {
+                  "id": "node-input-last-name-label",
+                  "overriddenFields": [
+                    "characters"
+                  ]
+                },
+                {
+                  "id": "node-input-last-name-value",
+                  "overriddenFields": [
+                    "characters"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "node-footer",
+              "name": "Modal/Footer",
+              "type": "FRAME",
+              "layout": {
+                "width": 478,
+                "height": 48,
+                "mode": "horizontal",
+                "align": "end",
+                "itemSpacing": 12,
+                "gapToken": "space.3",
+                "primaryAxisSizingMode": "AUTO",
+                "counterAxisSizingMode": "AUTO",
+                "boundVariables": {
+                  "itemSpacing": {
+                    "type": "VARIABLE_ALIAS",
+                    "id": "space.3"
+                  }
+                }
+              },
+              "absoluteBoundingBox": {
+                "x": 104,
+                "y": 604,
+                "width": 478,
+                "height": 48
+              },
+              "absoluteRenderBounds": {
+                "x": 104,
+                "y": 604,
+                "width": 478,
+                "height": 48
+              },
+              "children": [
+                {
+                  "id": "node-button-cancel",
+                  "name": "Button/Secondary",
+                  "type": "INSTANCE",
+                  "componentId": "component-button-secondary",
+                  "componentSet": "Action/Button",
+                  "componentMetadata": {
+                    "key": "mock-component-button-secondary",
+                    "name": "Action/Button",
+                    "componentSetId": "component-set-button",
+                    "componentSetName": "Action/Button",
+                    "remote": true
+                  },
+                  "componentProperties": {
+                    "Hierarchy": {
+                      "type": "VARIANT",
+                      "value": "secondary"
+                    },
+                    "Size": {
+                      "type": "VARIANT",
+                      "value": "medium"
+                    },
+                    "State": {
+                      "type": "VARIANT",
+                      "value": "Rest"
+                    }
+                  },
+                  "text": {
+                    "label": "Cancel"
+                  },
+                  "layout": {
+                    "width": 92,
+                    "height": 40,
+                    "mode": "horizontal",
+                    "align": "center",
+                    "itemSpacing": 8
+                  },
+                  "absoluteBoundingBox": {
+                    "x": 360,
+                    "y": 604,
+                    "width": 92,
+                    "height": 40
+                  },
+                  "absoluteRenderBounds": {
+                    "x": 360,
+                    "y": 604,
+                    "width": 92,
+                    "height": 40
+                  },
+                  "overrides": [
+                    {
+                      "id": "node-button-cancel-label",
+                      "overriddenFields": [
+                        "characters"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "node-button-save",
+                  "name": "Button/Primary",
+                  "type": "INSTANCE",
+                  "componentId": "component-button-primary",
+                  "componentSet": "Action/Button",
+                  "componentMetadata": {
+                    "key": "mock-component-button-primary",
+                    "name": "Action/Button",
+                    "componentSetId": "component-set-button",
+                    "componentSetName": "Action/Button",
+                    "remote": true
+                  },
+                  "componentProperties": {
+                    "Hierarchy": {
+                      "type": "VARIANT",
+                      "value": "primary"
+                    },
+                    "Size": {
+                      "type": "VARIANT",
+                      "value": "medium"
+                    },
+                    "State": {
+                      "type": "VARIANT",
+                      "value": "Rest"
+                    }
+                  },
+                  "text": {
+                    "label": "Save changes"
+                  },
+                  "layout": {
+                    "width": 118,
+                    "height": 40,
+                    "mode": "horizontal",
+                    "align": "center",
+                    "itemSpacing": 8
+                  },
+                  "absoluteBoundingBox": {
+                    "x": 464,
+                    "y": 604,
+                    "width": 118,
+                    "height": 40
+                  },
+                  "absoluteRenderBounds": {
+                    "x": 464,
+                    "y": 604,
+                    "width": 118,
+                    "height": 40
+                  },
+                  "overrides": [
+                    {
+                      "id": "node-button-save-label",
+                      "overriddenFields": [
+                        "characters"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1089 @@
+{
+  "schemaVersion": "component-contract/v1",
+  "packageName": "@hugo-ui/mui",
+  "packageVersion": "1.0.2",
+  "componentName": "Modal",
+  "importName": "Modal",
+  "importStatement": "import { Modal } from '@hugo-ui/mui';",
+  "implementationName": "HugoUIModal",
+  "propsTypeName": "HugoUIModalProps",
+  "sourceFiles": [
+    "packages/mui/src/Modal/Modal.tsx",
+    "packages/mui/src/Modal/index.ts",
+    "packages/mui/src/Modal/ModalFooter.tsx",
+    "packages/mui/src/Modal/ModalTitle.tsx",
+    "packages/mui/src/Modal/Feedback.tsx",
+    "packages/mui/src/Modal/styles/modalTokens.ts",
+    "packages/mui/src/Modal/Modal.test.tsx",
+    "packages/mui/src/Modal/ModalFooter.test.tsx",
+    "packages/mui/src/Modal/ModalTitle.test.tsx",
+    "packages/storybook/src/stories/Modal.stories.tsx"
+  ],
+  "props": [
+    {
+      "name": "open",
+      "type": "ModalProps['open']",
+      "required": true,
+      "values": [],
+      "defaultValue": null,
+      "description": "If `true`, the component is shown.",
+      "source": "typescript:public-props:HugoUIModalProps.open",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "title",
+      "type": "React.ReactNode",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The title of the modal",
+      "source": "typescript:component:packages/mui/src/Modal/Modal.tsx#HugoUIModalProps.title",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "type",
+      "type": "'error' | 'warning' | 'transactional' | 'destructive' | 'informational' | 'feedback'",
+      "required": false,
+      "values": [
+        "error",
+        "warning",
+        "transactional",
+        "destructive",
+        "informational",
+        "feedback"
+      ],
+      "defaultValue": "transactional",
+      "description": "Visual and behavioral intent of the modal.",
+      "source": "typescript:component:packages/mui/src/Modal/Modal.tsx#HugoUIModalProps.type",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "onClose",
+      "type": "() => void",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The function to be called when the modal is closed",
+      "source": "typescript:component:packages/mui/src/Modal/Modal.tsx#HugoUIModalProps.onClose",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "buttonDefs",
+      "type": "HugoUIModalButtonsType",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The button definitions for the modal",
+      "source": "typescript:component:packages/mui/src/Modal/Modal.tsx#HugoUIModalProps.buttonDefs",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The content of the modal",
+      "source": "typescript:component:packages/mui/src/Modal/Modal.tsx#HugoUIModalProps.children",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "subTitle",
+      "type": "React.ReactNode",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "",
+      "source": "typescript:component:packages/mui/src/Modal/Modal.tsx#HugoUIModalProps.subTitle",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "closeButton",
+      "type": "boolean",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "Controls whether the modal title renders a close button. Error, informational, and feedback modals are closeable by default.",
+      "source": "typescript:component:packages/mui/src/Modal/Modal.tsx#HugoUIModalProps.closeButton",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "footerComponent",
+      "type": "React.ReactNode",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The footer component of the modal",
+      "source": "typescript:component:packages/mui/src/Modal/Modal.tsx#HugoUIModalProps.footerComponent",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "headerComponent",
+      "type": "React.ReactNode",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The header component of the modal",
+      "source": "typescript:component:packages/mui/src/Modal/Modal.tsx#HugoUIModalProps.headerComponent",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "Indicates whether the modal is loading",
+      "source": "typescript:component:packages/mui/src/Modal/Modal.tsx#HugoUIModalProps.loading",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "showLoadingIndicator",
+      "type": "boolean",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "show loading indicator on Modal",
+      "source": "typescript:component:packages/mui/src/Modal/Modal.tsx#HugoUIModalProps.showLoadingIndicator",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "messages",
+      "type": "HugoUIFeedbackMessageType[]",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "only for feedback",
+      "source": "typescript:component:packages/mui/src/Modal/Modal.tsx#HugoUIModalProps.messages",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "headerPrefixIcon",
+      "type": "React.ReactElement",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "allow user to customize their prefix icon of Modal header",
+      "source": "typescript:component:packages/mui/src/Modal/Modal.tsx#HugoUIModalProps.headerPrefixIcon",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "disableAutoFocus",
+      "type": "boolean",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "allows user to disable the auto focus onto the bottom action buttons in the case there is another element to focus on first",
+      "source": "typescript:component:packages/mui/src/Modal/Modal.tsx#HugoUIModalProps.disableAutoFocus",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The id of the component",
+      "source": "typescript:public-props:HugoUIModalProps.id",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The class name of the component",
+      "source": "typescript:public-props:HugoUIModalProps.className",
+      "aiUsage": "discouraged"
+    },
+    {
+      "name": "style",
+      "type": "CSSProperties",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The style of the component",
+      "source": "typescript:public-props:HugoUIModalProps.style",
+      "aiUsage": "discouraged"
+    },
+    {
+      "name": "slots",
+      "type": "Partial<Slots> | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The components used for each slot inside.",
+      "source": "typescript:public-props:HugoUIModalProps.slots",
+      "aiUsage": "discouraged"
+    },
+    {
+      "name": "transitionDuration",
+      "type": "TransitionProps['timeout'] | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The duration for the transition, in milliseconds.\nYou may specify a single timeout for all transitions, or individually with an object.",
+      "source": "typescript:public-props:HugoUIModalProps.transitionDuration",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "fullScreen",
+      "type": "boolean | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "If `true`, the dialog is full-screen.",
+      "source": "typescript:public-props:HugoUIModalProps.fullScreen",
+      "aiUsage": "normal"
+    }
+  ],
+  "relatedTypes": [
+    {
+      "name": "HugoUIModalButtonsType",
+      "kind": "interface",
+      "source": "packages/mui/src/Modal/ModalFooter.tsx",
+      "properties": [
+        {
+          "name": "primary",
+          "type": "HugoUIModalPrimaryButtonProps",
+          "required": false,
+          "values": [],
+          "description": "The primary button (save button)",
+          "source": "typescript:component:packages/mui/src/Modal/ModalFooter.tsx#HugoUIModalButtonsType.primary"
+        },
+        {
+          "name": "secondary",
+          "type": "HugoUIModalSecondaryButtonProps",
+          "required": false,
+          "values": [],
+          "description": "The secondary button (cancel button)",
+          "source": "typescript:component:packages/mui/src/Modal/ModalFooter.tsx#HugoUIModalButtonsType.secondary"
+        },
+        {
+          "name": "tertiary",
+          "type": "HugoUIModalTertiaryButtonProps",
+          "required": false,
+          "values": [],
+          "description": "The tertiary button (link button)",
+          "source": "typescript:component:packages/mui/src/Modal/ModalFooter.tsx#HugoUIModalButtonsType.tertiary"
+        }
+      ]
+    },
+    {
+      "name": "HugoUIModalPrimaryButtonProps",
+      "kind": "type",
+      "source": "packages/mui/src/Modal/ModalFooter.tsx",
+      "properties": [
+        {
+          "name": "level",
+          "type": "'primary'",
+          "required": false,
+          "values": [
+            "primary"
+          ],
+          "description": "The level of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIPrimaryButtonStyleProps.level; typescript:component:packages/mui/src/Button/Button.tsx#HugoUIDestructButtonStyleProps.level"
+        },
+        {
+          "name": "colorTheme",
+          "type": "'purple' | 'white'",
+          "required": false,
+          "values": [
+            "purple",
+            "white",
+            "red"
+          ],
+          "description": "The color theme of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIPrimaryButtonStyleProps.colorTheme; typescript:component:packages/mui/src/Button/Button.tsx#HugoUIDestructButtonStyleProps.colorTheme"
+        },
+        {
+          "name": "size",
+          "type": "HugoUIButtonSize",
+          "required": false,
+          "values": [
+            "small",
+            "medium",
+            "large"
+          ],
+          "description": "The size of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.size"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the button is loading",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loading"
+        },
+        {
+          "name": "loadingPosition",
+          "type": "'start' | 'center'",
+          "required": false,
+          "values": [
+            "start",
+            "center"
+          ],
+          "description": "The loading indicator can be positioned on the start or the center of the button.",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loadingPosition"
+        },
+        {
+          "name": "labelHidden",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the label is hidden; used to save the space on smaller screens",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.labelHidden"
+        },
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "required": false,
+          "values": [],
+          "description": "",
+          "source": "typescript:component:packages/mui/src/Modal/ModalFooter.tsx#HugoUIModalButtonCommonType.label"
+        },
+        {
+          "name": "hidden",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "",
+          "source": "typescript:component:packages/mui/src/Modal/ModalFooter.tsx#HugoUIModalButtonCommonType.hidden"
+        }
+      ]
+    },
+    {
+      "name": "HugoUIModalSecondaryButtonProps",
+      "kind": "type",
+      "source": "packages/mui/src/Modal/ModalFooter.tsx",
+      "properties": [
+        {
+          "name": "level",
+          "type": "'secondary'",
+          "required": true,
+          "values": [
+            "secondary"
+          ],
+          "description": "The level of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUISecondaryButtonStyleProps.level"
+        },
+        {
+          "name": "colorTheme",
+          "type": "'purple' | 'grey' | 'white'",
+          "required": false,
+          "values": [
+            "purple",
+            "white",
+            "grey"
+          ],
+          "description": "The color theme of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUISecondaryButtonStyleProps.colorTheme"
+        },
+        {
+          "name": "size",
+          "type": "HugoUIButtonSize",
+          "required": false,
+          "values": [
+            "small",
+            "medium",
+            "large"
+          ],
+          "description": "The size of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.size"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the button is loading",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loading"
+        },
+        {
+          "name": "loadingPosition",
+          "type": "'start' | 'center'",
+          "required": false,
+          "values": [
+            "start",
+            "center"
+          ],
+          "description": "The loading indicator can be positioned on the start or the center of the button.",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loadingPosition"
+        },
+        {
+          "name": "labelHidden",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the label is hidden; used to save the space on smaller screens",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.labelHidden"
+        },
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "required": false,
+          "values": [],
+          "description": "",
+          "source": "typescript:component:packages/mui/src/Modal/ModalFooter.tsx#HugoUIModalButtonCommonType.label"
+        },
+        {
+          "name": "hidden",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "",
+          "source": "typescript:component:packages/mui/src/Modal/ModalFooter.tsx#HugoUIModalButtonCommonType.hidden"
+        }
+      ]
+    },
+    {
+      "name": "HugoUIModalTertiaryButtonProps",
+      "kind": "type",
+      "source": "packages/mui/src/Modal/ModalFooter.tsx",
+      "properties": [
+        {
+          "name": "renderCustomComponent",
+          "type": "() => React.ReactNode",
+          "required": false,
+          "values": [],
+          "description": "",
+          "source": "typescript:component:packages/mui/src/Modal/ModalFooter.tsx#HugoUIModalTertiaryButtonProps.renderCustomComponent"
+        },
+        {
+          "name": "label",
+          "type": "React.ReactNode",
+          "required": false,
+          "values": [],
+          "description": "",
+          "source": "typescript:component:packages/mui/src/Modal/ModalFooter.tsx#HugoUIModalButtonCommonType.label"
+        },
+        {
+          "name": "hidden",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "",
+          "source": "typescript:component:packages/mui/src/Modal/ModalFooter.tsx#HugoUIModalButtonCommonType.hidden"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": false,
+          "values": [],
+          "description": "The content of the link",
+          "source": "typescript:component:packages/mui/src/Link/Link.tsx#HugoUILinkProps.children"
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "values": [],
+          "description": "The CSS class name of the root element.",
+          "source": "typescript:component:packages/mui/src/Link/Link.tsx#HugoUILinkProps.className"
+        },
+        {
+          "name": "mode",
+          "type": "HugoUILinkMode",
+          "required": false,
+          "values": [
+            "white",
+            "error",
+            "light",
+            "dark"
+          ],
+          "description": "The color scheme of the link text; `white`, `light`, and `dark` are all the colors of the background",
+          "source": "typescript:component:packages/mui/src/Link/Link.tsx#HugoUILinkProps.mode"
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the link is disabled",
+          "source": "typescript:component:packages/mui/src/Link/Link.tsx#HugoUILinkProps.disabled"
+        },
+        {
+          "name": "size",
+          "type": "HugoUILinkSize",
+          "required": false,
+          "values": [
+            "small",
+            "medium"
+          ],
+          "description": "The size of the link",
+          "source": "typescript:component:packages/mui/src/Link/Link.tsx#HugoUILinkProps.size"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the link is loading/busy",
+          "source": "typescript:component:packages/mui/src/Link/Link.tsx#HugoUILinkProps.loading"
+        },
+        {
+          "name": "component",
+          "type": "React.ElementType",
+          "required": false,
+          "values": [
+            "symbol",
+            "object",
+            "small",
+            "center",
+            "style",
+            "button",
+            "a",
+            "abbr",
+            "address",
+            "area",
+            "article",
+            "aside",
+            "audio",
+            "b",
+            "base",
+            "bdi",
+            "bdo",
+            "big",
+            "blockquote",
+            "body",
+            "br",
+            "canvas",
+            "caption",
+            "cite",
+            "code",
+            "col",
+            "colgroup",
+            "data",
+            "datalist",
+            "dd",
+            "del",
+            "details",
+            "dfn",
+            "dialog",
+            "div",
+            "dl",
+            "dt",
+            "em",
+            "embed",
+            "fieldset",
+            "figcaption",
+            "figure",
+            "footer",
+            "form",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+            "head",
+            "header",
+            "hgroup",
+            "hr",
+            "html",
+            "i",
+            "iframe",
+            "img",
+            "input",
+            "ins",
+            "kbd",
+            "keygen",
+            "label",
+            "legend",
+            "li",
+            "link",
+            "main",
+            "map",
+            "mark",
+            "menu",
+            "menuitem",
+            "meta",
+            "meter",
+            "nav",
+            "noindex",
+            "noscript",
+            "ol",
+            "optgroup",
+            "option",
+            "output",
+            "p",
+            "param",
+            "picture",
+            "pre",
+            "progress",
+            "q",
+            "rp",
+            "rt",
+            "ruby",
+            "s",
+            "samp",
+            "search",
+            "slot",
+            "script",
+            "section",
+            "select",
+            "source",
+            "span",
+            "strong",
+            "sub",
+            "summary",
+            "sup",
+            "table",
+            "template",
+            "tbody",
+            "td",
+            "textarea",
+            "tfoot",
+            "th",
+            "thead",
+            "time",
+            "title",
+            "tr",
+            "track",
+            "u",
+            "ul",
+            "var",
+            "video",
+            "wbr",
+            "webview",
+            "svg",
+            "animate",
+            "animateMotion",
+            "animateTransform",
+            "circle",
+            "clipPath",
+            "defs",
+            "desc",
+            "ellipse",
+            "feBlend",
+            "feColorMatrix",
+            "feComponentTransfer",
+            "feComposite",
+            "feConvolveMatrix",
+            "feDiffuseLighting",
+            "feDisplacementMap",
+            "feDistantLight",
+            "feDropShadow",
+            "feFlood",
+            "feFuncA",
+            "feFuncB",
+            "feFuncG",
+            "feFuncR",
+            "feGaussianBlur",
+            "feImage",
+            "feMerge",
+            "feMergeNode",
+            "feMorphology",
+            "feOffset",
+            "fePointLight",
+            "feSpecularLighting",
+            "feSpotLight",
+            "feTile",
+            "feTurbulence",
+            "filter",
+            "foreignObject",
+            "g",
+            "image",
+            "line",
+            "linearGradient",
+            "marker",
+            "mask",
+            "metadata",
+            "mpath",
+            "path",
+            "pattern",
+            "polygon",
+            "polyline",
+            "radialGradient",
+            "rect",
+            "set",
+            "stop",
+            "switch",
+            "text",
+            "textPath",
+            "tspan",
+            "use",
+            "view"
+          ],
+          "description": "Allows uses to change the element type of the link; default is `a`",
+          "source": "typescript:component:packages/mui/src/Link/Link.tsx#HugoUILinkProps.component"
+        }
+      ]
+    },
+    {
+      "name": "HugoUIFeedbackMessageType",
+      "kind": "interface",
+      "source": "packages/mui/src/Modal/Feedback.tsx",
+      "properties": [
+        {
+          "name": "type",
+          "type": "'success' | 'destructiveSuccess' | 'error'",
+          "required": true,
+          "values": [
+            "error",
+            "success",
+            "destructiveSuccess"
+          ],
+          "description": "The type of the message",
+          "source": "typescript:component:packages/mui/src/Modal/Feedback.tsx#HugoUIFeedbackMessageType.type"
+        },
+        {
+          "name": "message",
+          "type": "React.ReactNode",
+          "required": false,
+          "values": [],
+          "description": "The message to display",
+          "source": "typescript:component:packages/mui/src/Modal/Feedback.tsx#HugoUIFeedbackMessageType.message"
+        },
+        {
+          "name": "description",
+          "type": "React.ReactNode",
+          "required": false,
+          "values": [],
+          "description": "The description of the message",
+          "source": "typescript:component:packages/mui/src/Modal/Feedback.tsx#HugoUIFeedbackMessageType.description"
+        },
+        {
+          "name": "descriptonComponentType",
+          "type": "ElementType",
+          "required": false,
+          "values": [
+            "symbol",
+            "object",
+            "small",
+            "center",
+            "style",
+            "button",
+            "a",
+            "abbr",
+            "address",
+            "area",
+            "article",
+            "aside",
+            "audio",
+            "b",
+            "base",
+            "bdi",
+            "bdo",
+            "big",
+            "blockquote",
+            "body",
+            "br",
+            "canvas",
+            "caption",
+            "cite",
+            "code",
+            "col",
+            "colgroup",
+            "data",
+            "datalist",
+            "dd",
+            "del",
+            "details",
+            "dfn",
+            "dialog",
+            "div",
+            "dl",
+            "dt",
+            "em",
+            "embed",
+            "fieldset",
+            "figcaption",
+            "figure",
+            "footer",
+            "form",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+            "head",
+            "header",
+            "hgroup",
+            "hr",
+            "html",
+            "i",
+            "iframe",
+            "img",
+            "input",
+            "ins",
+            "kbd",
+            "keygen",
+            "label",
+            "legend",
+            "li",
+            "link",
+            "main",
+            "map",
+            "mark",
+            "menu",
+            "menuitem",
+            "meta",
+            "meter",
+            "nav",
+            "noindex",
+            "noscript",
+            "ol",
+            "optgroup",
+            "option",
+            "output",
+            "p",
+            "param",
+            "picture",
+            "pre",
+            "progress",
+            "q",
+            "rp",
+            "rt",
+            "ruby",
+            "s",
+            "samp",
+            "search",
+            "slot",
+            "script",
+            "section",
+            "select",
+            "source",
+            "span",
+            "strong",
+            "sub",
+            "summary",
+            "sup",
+            "table",
+            "template",
+            "tbody",
+            "td",
+            "textarea",
+            "tfoot",
+            "th",
+            "thead",
+            "time",
+            "title",
+            "tr",
+            "track",
+            "u",
+            "ul",
+            "var",
+            "video",
+            "wbr",
+            "webview",
+            "svg",
+            "animate",
+            "animateMotion",
+            "animateTransform",
+            "circle",
+            "clipPath",
+            "defs",
+            "desc",
+            "ellipse",
+            "feBlend",
+            "feColorMatrix",
+            "feComponentTransfer",
+            "feComposite",
+            "feConvolveMatrix",
+            "feDiffuseLighting",
+            "feDisplacementMap",
+            "feDistantLight",
+            "feDropShadow",
+            "feFlood",
+            "feFuncA",
+            "feFuncB",
+            "feFuncG",
+            "feFuncR",
+            "feGaussianBlur",
+            "feImage",
+            "feMerge",
+            "feMergeNode",
+            "feMorphology",
+            "feOffset",
+            "fePointLight",
+            "feSpecularLighting",
+            "feSpotLight",
+            "feTile",
+            "feTurbulence",
+            "filter",
+            "foreignObject",
+            "g",
+            "image",
+            "line",
+            "linearGradient",
+            "marker",
+            "mask",
+            "metadata",
+            "mpath",
+            "path",
+            "pattern",
+            "polygon",
+            "polyline",
+            "radialGradient",
+            "rect",
+            "set",
+            "stop",
+            "switch",
+            "text",
+            "textPath",
+            "tspan",
+            "use",
+            "view"
+          ],
+          "description": "default component type is p, if the description is more complex component, allow user to change the component type",
+          "source": "typescript:component:packages/mui/src/Modal/Feedback.tsx#HugoUIFeedbackMessageType.descriptonComponentType"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "name": "Transactional modal",
+      "source": "packages/storybook/src/stories/Modal.stories.tsx#Transactional",
+      "code": "<Modal open={open} onClose={handleClose} title=\"Transactional\" type=\"transactional\" buttonDefs={{ primary: { onClick: handleSave } }}>Content</Modal>"
+    },
+    {
+      "name": "Destructive modal",
+      "source": "packages/storybook/src/stories/Modal.stories.tsx#Destructive",
+      "code": "<Modal open={open} onClose={handleClose} title=\"Destructive\" type=\"destructive\" buttonDefs={{ primary: { onClick: handleConfirm } }}>Content</Modal>"
+    },
+    {
+      "name": "Feedback modal",
+      "source": "packages/storybook/src/stories/Modal.stories.tsx#FeedbackSuccess",
+      "code": "<Modal open={open} onClose={handleClose} type=\"feedback\" messages={[{ type: 'success', message: 'Success message' }]} />"
+    }
+  ],
+  "forbiddenProps": [],
+  "discouragedProps": [
+    {
+      "name": "slots",
+      "reason": "Inherited Dialog escape hatch. Use only when replacing MUI internals is required."
+    },
+    {
+      "name": "style",
+      "reason": "Use only for local layout integration."
+    },
+    {
+      "name": "className",
+      "reason": "Do not use to recreate internal HugoUIModal classes."
+    }
+  ],
+  "designMappings": {
+    "variant": {
+      "prop": "type",
+      "values": {
+        "transactional": "Default decision or action modal",
+        "destructive": "Destructive confirmation",
+        "warning": "Warning flow",
+        "informational": "Information-only modal",
+        "error": "Error modal",
+        "feedback": "Result feedback modal"
+      }
+    },
+    "actions": {
+      "prop": "buttonDefs",
+      "structure": {
+        "primary": "HugoUIModalPrimaryButtonProps",
+        "secondary": "HugoUIModalSecondaryButtonProps",
+        "tertiary": "HugoUIModalTertiaryButtonProps"
+      },
+      "notes": "Primary and secondary render HugoUIButton. Tertiary renders Link unless renderCustomComponent is supplied."
+    },
+    "feedback": {
+      "props": [
+        "type",
+        "messages"
+      ],
+      "notes": "messages is used when type is feedback and supports success, destructiveSuccess, and error message types."
+    },
+    "customRegions": {
+      "props": [
+        "headerComponent",
+        "footerComponent"
+      ],
+      "notes": "Use only when the standard title and footer do not match the design."
+    },
+    "loading": {
+      "props": [
+        "loading",
+        "showLoadingIndicator"
+      ],
+      "notes": "loading constrains action buttons; showLoadingIndicator controls panel-level loading feedback."
+    }
+  },
+  "tokenPolicy": {
+    "usesSemanticRoles": true,
+    "preferredTokenLayer": "theme.hugoUIColorRoles",
+    "generationPolicy": [
+      "Use type to choose visual intent instead of overriding modal colors.",
+      "Do not hardcode header, icon, footer, focus, warning, or error colors.",
+      "Use buttonDefs to customize modal actions rather than replacing the footer by default."
+    ]
+  },
+  "a11yRules": [
+    {
+      "id": "modal-open-controlled",
+      "rule": "Modal requires open to be controlled by the caller.",
+      "source": "packages/mui/src/Modal/Modal.tsx"
+    },
+    {
+      "id": "modal-close",
+      "rule": "Provide onClose when the modal should close from Escape, backdrop, close button, or secondary action.",
+      "source": "packages/mui/src/Modal/Modal.test.tsx"
+    },
+    {
+      "id": "modal-title-label",
+      "rule": "A string title becomes aria-label; a non-string title uses aria-labelledby through ModalTitle.",
+      "source": "packages/mui/src/Modal/Modal.tsx"
+    },
+    {
+      "id": "modal-feedback",
+      "rule": "Feedback messages should provide meaningful message text and optional description.",
+      "source": "packages/mui/src/Modal/Feedback.tsx"
+    }
+  ],
+  "generationRules": [
+    {
+      "id": "modal-default",
+      "rule": "Default generated Modal usage should use type=\"transactional\", a controlled open prop, onClose, title, children, and buttonDefs.primary."
+    },
+    {
+      "id": "modal-actions",
+      "rule": "Use buttonDefs.primary for the main action, buttonDefs.secondary for cancel/back, and buttonDefs.tertiary for low-emphasis link actions."
+    },
+    {
+      "id": "modal-feedback",
+      "rule": "For completion messages, use type=\"feedback\" with messages instead of manually composing a transactional modal."
+    }
+  ],
+  "validationRules": [
+    {
+      "id": "modal-public-import",
+      "rule": "Generated code must import Modal from @hugo-ui/mui."
+    },
+    {
+      "id": "modal-controlled-open",
+      "rule": "Generated code must pass open explicitly."
+    },
+    {
+      "id": "modal-buttondefs-shape",
+      "rule": "buttonDefs may contain primary, secondary, and tertiary entries matching the ModalFooter public types."
+    }
+  ],
+  "evidence": {
+    "publicExport": "packages/mui/src/index.ts",
+    "propsType": "HugoUIModalProps",
+    "metadata": "ai-contract/packages/mui/metadata/components/Modal.ai.json",
+    "stories": [
+      "packages/storybook/src/stories/Modal.stories.tsx"
+    ],
+    "tests": [
+      "packages/mui/src/Modal/Modal.test.tsx",
+      "packages/mui/src/Modal/ModalFooter.test.tsx",
+      "packages/mui/src/Modal/ModalTitle.test.tsx"
+    ]
+  },
+  "needsReview": true,
+  "needsReviewReason": "First contract version captures Modal and ModalFooter public structures, but inherited Dialog props are intentionally not exhaustively recommended.",
+  "generatedAt": "2026-06-18T16:49:50.895Z",
+  "sourceCommit": "28b72aee375fb36e8b5b75e591b4a5c2725c8f78"
+}

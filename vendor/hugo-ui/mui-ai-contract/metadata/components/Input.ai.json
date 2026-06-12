@@ -1,0 +1,151 @@
+{
+  "componentName": "Input",
+  "metadataVersion": "component-ai-metadata/v1",
+  "forbiddenProps": [],
+  "discouragedProps": [
+    {
+      "name": "InputProps",
+      "reason": "MUI v5 compatibility escape hatch. Prefer slotProps.input for new code."
+    },
+    {
+      "name": "inputProps",
+      "reason": "MUI v5 compatibility escape hatch. Prefer slotProps.htmlInput for new code."
+    },
+    {
+      "name": "InputLabelProps",
+      "reason": "MUI v5 compatibility escape hatch. Prefer slotProps.inputLabel for new code."
+    },
+    {
+      "name": "sx",
+      "reason": "Inherited MUI styling escape hatch. Prefer component props and theme tokens."
+    },
+    {
+      "name": "style",
+      "reason": "Use only for local layout integration."
+    },
+    {
+      "name": "className",
+      "reason": "Public styling escape hatch. Do not use to recreate internal HugoUIInput classes."
+    }
+  ],
+  "designMappings": {
+    "label": {
+      "prop": "label",
+      "notes": "Visible label for normal inputs; search inputs may use the label as placeholder."
+    },
+    "status": {
+      "props": ["color", "extraMessage"],
+      "values": {
+        "success": "Success status with InputStatus rendering for string extraMessage",
+        "error": "Error status with InputStatus rendering for string extraMessage",
+        "primary": "Default state"
+      }
+    },
+    "density": {
+      "prop": "mini",
+      "notes": "Use true for compact inputs."
+    },
+    "multilineCount": {
+      "props": ["multiline", "showCount"],
+      "notes": "showCount applies to multiline inputs and uses inputProps.maxLength or the default max length."
+    },
+    "loading": {
+      "prop": "loading",
+      "notes": "Shows an end adornment loading indicator and sets aria-busy on the HTML input."
+    }
+  },
+  "tokenPolicy": {
+    "usesSemanticRoles": true,
+    "preferredTokenLayer": "theme.hugoUIColorRoles",
+    "generationPolicy": [
+      "Use color=\"success\" or color=\"error\" only when extraMessage communicates that state.",
+      "Do not hardcode border, focus, success, or error colors.",
+      "Prefer slotProps over compatibility props for new generated code."
+    ]
+  },
+  "a11yRules": [
+    {
+      "id": "input-label",
+      "rule": "Provide label or an explicit aria label through html input props for generated inputs.",
+      "source": "packages/storybook/src/stories/Input.stories.tsx"
+    },
+    {
+      "id": "input-required",
+      "rule": "When required is true, the component marks the input aria-required and renders a visual required postfix.",
+      "source": "packages/mui/src/Input/Input.tsx"
+    },
+    {
+      "id": "input-error",
+      "rule": "When color is error, the component sets aria-invalid on the HTML input.",
+      "source": "packages/mui/src/Input/Input.tsx"
+    },
+    {
+      "id": "input-enter",
+      "rule": "For single-line inputs, Enter triggers the onBlur callback; multiline inputs preserve Enter for text entry.",
+      "source": "packages/mui/src/Input/input.test.tsx"
+    }
+  ],
+  "generationRules": [
+    {
+      "id": "input-controlled",
+      "rule": "Use value and onChange together for controlled examples."
+    },
+    {
+      "id": "input-status",
+      "rule": "Use extraMessage with color=\"success\" or color=\"error\" when displaying validation feedback."
+    },
+    {
+      "id": "input-compatibility",
+      "rule": "Do not choose InputProps, inputProps, or InputLabelProps by default; they are compatibility escape hatches."
+    }
+  ],
+  "validationRules": [
+    {
+      "id": "input-public-import",
+      "rule": "Generated code must import Input from @hugo-ui/mui."
+    },
+    {
+      "id": "input-status-pairing",
+      "rule": "If color is success or error, prefer a matching extraMessage."
+    }
+  ],
+  "examples": [
+    {
+      "name": "Basic input",
+      "source": "packages/storybook/src/stories/Input.stories.tsx#BasicInput",
+      "code": "<Input id=\"BasicInput\" label=\"Default input\" helperText=\"Helper text\" value=\"\" />"
+    },
+    {
+      "name": "Success status",
+      "source": "packages/storybook/src/stories/Input.stories.tsx#InputStatus",
+      "code": "<Input id=\"status-success\" color=\"success\" label=\"Success\" extraMessage=\"Success message\" />"
+    },
+    {
+      "name": "Multiline count",
+      "source": "packages/storybook/src/stories/Input.stories.tsx#MultilineInput",
+      "code": "<Input id=\"MultilineInput\" label=\"Notes\" multiline showCount />"
+    }
+  ],
+  "propOverrides": {
+    "value": {
+      "defaultValue": ""
+    },
+    "showCount": {
+      "defaultValue": true
+    },
+    "loading": {
+      "defaultValue": false
+    },
+    "placeholder": {
+      "defaultValue": ""
+    },
+    "color": {
+      "aiUsage": "conditional",
+      "recommendedValues": ["success", "error"],
+      "discouragedValues": ["primary", "secondary", "info", "warning"],
+      "description": "Status color for validation feedback. AI-generated usage should leave this unset by default and use success or error only with matching extraMessage."
+    }
+  },
+  "needsReview": true,
+  "needsReviewReason": "First contract version records compatibility props and selected TextField inherited props, but does not attempt to recommend every inherited MUI TextField option."
+}

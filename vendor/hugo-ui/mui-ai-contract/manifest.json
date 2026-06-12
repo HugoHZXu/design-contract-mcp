@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "package-contract-manifest/v1",
+  "packageName": "@hugo-ui/mui",
+  "packageVersion": "1.0.2",
+  "sourcePackagePath": "packages/mui",
+  "generatedAt": "2026-06-18T16:25:52.214Z",
+  "sourceCommit": "28b72aee375fb36e8b5b75e591b4a5c2725c8f78",
+  "components": [
+    {
+      "componentName": "Button",
+      "importName": "Button",
+      "contract": "components/Button.contract.json",
+      "metadata": "metadata/components/Button.ai.json",
+      "sourceFiles": [
+        "packages/mui/src/Button/Button.tsx",
+        "packages/mui/src/Button/index.ts",
+        "packages/mui/src/Button/buttonTypes.ts",
+        "packages/mui/src/Button/styles/buttonTokens.ts",
+        "packages/mui/src/Button/button.test.tsx",
+        "packages/storybook/src/stories/Button.stories.tsx"
+      ],
+      "propsTypeName": "HugoUIButtonProps",
+      "needsReview": true,
+      "needsReviewReason": "First contract version includes component-authored props plus selected inherited props that are used by source, stories, or tests. Review before treating all inherited MUI escape hatches as covered."
+    },
+    {
+      "componentName": "Input",
+      "importName": "Input",
+      "contract": "components/Input.contract.json",
+      "metadata": "metadata/components/Input.ai.json",
+      "sourceFiles": [
+        "packages/mui/src/Input/Input.tsx",
+        "packages/mui/src/Input/index.ts",
+        "packages/mui/src/Input/InputStatus.tsx",
+        "packages/mui/src/Input/styles/inputTokens.ts",
+        "packages/mui/src/Input/input.test.tsx",
+        "packages/storybook/src/stories/Input.stories.tsx"
+      ],
+      "propsTypeName": "HugoUIInputProps",
+      "needsReview": true,
+      "needsReviewReason": "First contract version records compatibility props and selected TextField inherited props, but does not attempt to recommend every inherited MUI TextField option."
+    },
+    {
+      "componentName": "Modal",
+      "importName": "Modal",
+      "contract": "components/Modal.contract.json",
+      "metadata": "metadata/components/Modal.ai.json",
+      "sourceFiles": [
+        "packages/mui/src/Modal/Modal.tsx",
+        "packages/mui/src/Modal/index.ts",
+        "packages/mui/src/Modal/ModalFooter.tsx",
+        "packages/mui/src/Modal/ModalTitle.tsx",
+        "packages/mui/src/Modal/Feedback.tsx",
+        "packages/mui/src/Modal/styles/modalTokens.ts",
+        "packages/mui/src/Modal/Modal.test.tsx",
+        "packages/mui/src/Modal/ModalFooter.test.tsx",
+        "packages/mui/src/Modal/ModalTitle.test.tsx",
+        "packages/storybook/src/stories/Modal.stories.tsx"
+      ],
+      "propsTypeName": "HugoUIModalProps",
+      "needsReview": true,
+      "needsReviewReason": "First contract version captures Modal and ModalFooter public structures, but inherited Dialog props are intentionally not exhaustively recommended."
+    }
+  ],
+  "tokenContract": "tokens/token-map.contract.json",
+  "notes": [
+    "This manifest covers only the MUI package scope.",
+    "Use the component contract files as the machine-readable entry points for AI generation and validation."
+  ]
+}

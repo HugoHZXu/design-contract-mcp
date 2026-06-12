@@ -1,0 +1,633 @@
+{
+  "schemaVersion": "component-contract/v1",
+  "packageName": "@hugo-ui/mui",
+  "packageVersion": "1.0.2",
+  "componentName": "Input",
+  "importName": "Input",
+  "importStatement": "import { Input } from '@hugo-ui/mui';",
+  "implementationName": "HugoUIInput",
+  "propsTypeName": "HugoUIInputProps",
+  "sourceFiles": [
+    "packages/mui/src/Input/Input.tsx",
+    "packages/mui/src/Input/index.ts",
+    "packages/mui/src/Input/InputStatus.tsx",
+    "packages/mui/src/Input/styles/inputTokens.ts",
+    "packages/mui/src/Input/input.test.tsx",
+    "packages/storybook/src/stories/Input.stories.tsx"
+  ],
+  "props": [
+    {
+      "name": "id",
+      "type": "string | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The id of the `input` element.\nUse this prop to make `label` and `helperText` accessible for screen readers.",
+      "source": "typescript:public-props:HugoUIInputProps.id",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "label",
+      "type": "React.ReactNode",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The label content.",
+      "source": "typescript:public-props:HugoUIInputProps.label",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "value",
+      "type": "string",
+      "required": false,
+      "values": [],
+      "defaultValue": "",
+      "description": "The value of the `input` element, required for a controlled component.",
+      "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.value",
+      "aiUsage": "normal",
+      "sources": [
+        "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.value"
+      ]
+    },
+    {
+      "name": "helperText",
+      "type": "React.ReactNode",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The helper text content.",
+      "source": "typescript:public-props:HugoUIInputProps.helperText",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "extraMessage",
+      "type": "React.ReactNode",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "Used for the success/error message\n\nShould only be used with `color=\"success\"` or `color=\"error\"`\n\nType: `node` (supports `React.ReactNode`)",
+      "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.extraMessage",
+      "aiUsage": "normal",
+      "sources": [
+        "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.extraMessage"
+      ]
+    },
+    {
+      "name": "color",
+      "type": "OverridableStringUnion<'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning', TextFieldPropsColorOverrides> | undefined",
+      "required": false,
+      "values": [
+        "primary",
+        "secondary",
+        "error",
+        "info",
+        "success",
+        "warning"
+      ],
+      "defaultValue": null,
+      "description": "Status color for validation feedback. AI-generated usage should leave this unset by default and use success or error only with matching extraMessage.",
+      "source": "typescript:public-props:HugoUIInputProps.color",
+      "aiUsage": "conditional",
+      "recommendedValues": [
+        "success",
+        "error"
+      ],
+      "discouragedValues": [
+        "primary",
+        "secondary",
+        "info",
+        "warning"
+      ]
+    },
+    {
+      "name": "mini",
+      "type": "boolean",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "If `true`, show mini input",
+      "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.mini",
+      "aiUsage": "normal",
+      "sources": [
+        "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.mini"
+      ]
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "values": [],
+      "defaultValue": false,
+      "description": "If `true`, show loading status",
+      "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.loading",
+      "aiUsage": "normal",
+      "sources": [
+        "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.loading"
+      ]
+    },
+    {
+      "name": "showCount",
+      "type": "boolean",
+      "required": false,
+      "values": [],
+      "defaultValue": true,
+      "description": "Only used for `multiline`. To show/hide the word count below the field",
+      "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.showCount",
+      "aiUsage": "normal",
+      "sources": [
+        "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.showCount"
+      ]
+    },
+    {
+      "name": "multiline",
+      "type": "boolean | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "If `true`, a `textarea` element is rendered instead of an input.",
+      "source": "typescript:public-props:HugoUIInputProps.multiline",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "required",
+      "type": "boolean | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "If `true`, the label is displayed as required and the `input` element is required.",
+      "source": "typescript:public-props:HugoUIInputProps.required",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "If `true`, the component is disabled.",
+      "source": "typescript:public-props:HugoUIInputProps.disabled",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "fullWidth",
+      "type": "boolean | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "If `true`, the input will take up the full width of its container.",
+      "source": "typescript:public-props:HugoUIInputProps.fullWidth",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "icon",
+      "type": "React.ReactNode",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "Used for customizing the postfix icon.",
+      "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.icon",
+      "aiUsage": "normal",
+      "sources": [
+        "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.icon"
+      ]
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "required": false,
+      "values": [],
+      "defaultValue": "",
+      "description": "Input placeholder",
+      "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.placeholder",
+      "aiUsage": "normal",
+      "sources": [
+        "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.placeholder"
+      ]
+    },
+    {
+      "name": "autoFocus",
+      "type": "boolean | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "If `true`, the `input` element is focused during the first mount.",
+      "source": "typescript:public-props:HugoUIInputProps.autoFocus",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "autoFocusByKeyboard",
+      "type": "boolean",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "If `true`, when `autoFocus` is true, it should be focus visible status",
+      "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.autoFocusByKeyboard",
+      "aiUsage": "normal",
+      "sources": [
+        "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.autoFocusByKeyboard"
+      ]
+    },
+    {
+      "name": "name",
+      "type": "string | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "Name attribute of the `input` element.",
+      "source": "typescript:public-props:HugoUIInputProps.name",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "type",
+      "type": "React.InputHTMLAttributes<unknown>['type'] | undefined",
+      "required": false,
+      "values": [
+        "number",
+        "button",
+        "color",
+        "search",
+        "time",
+        "image",
+        "text",
+        "hidden",
+        "checkbox",
+        "date",
+        "datetime-local",
+        "email",
+        "file",
+        "month",
+        "password",
+        "radio",
+        "range",
+        "reset",
+        "submit",
+        "tel",
+        "url",
+        "week"
+      ],
+      "defaultValue": null,
+      "description": "Type of the `input` element. It should be [a valid HTML5 input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#input_types).",
+      "source": "typescript:public-props:HugoUIInputProps.type",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "onChange",
+      "type": "FilledInputProps['onChange'] | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "Callback fired when the value is changed.",
+      "source": "typescript:public-props:HugoUIInputProps.onChange",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "onBlur",
+      "type": "InputBaseProps['onBlur'] | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "",
+      "source": "typescript:public-props:HugoUIInputProps.onBlur",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "InputProps",
+      "type": "Partial<OutlinedInputProps>",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "MUI v5 compatibility prop. Prefer `slotProps.input` for new code.",
+      "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputCompatibilityProps.InputProps",
+      "aiUsage": "discouraged",
+      "sources": [
+        "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputCompatibilityProps.InputProps"
+      ]
+    },
+    {
+      "name": "inputProps",
+      "type": "React.InputHTMLAttributes<HTMLInputElement>",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "MUI v5 compatibility prop. Prefer `slotProps.htmlInput` for new code.",
+      "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputCompatibilityProps.inputProps",
+      "aiUsage": "discouraged",
+      "sources": [
+        "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputCompatibilityProps.inputProps"
+      ]
+    },
+    {
+      "name": "InputLabelProps",
+      "type": "Partial<MuiInputLabelProps>",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "MUI v5 compatibility prop. Prefer `slotProps.inputLabel` for new code.",
+      "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputCompatibilityProps.InputLabelProps",
+      "aiUsage": "discouraged",
+      "sources": [
+        "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputCompatibilityProps.InputLabelProps"
+      ]
+    },
+    {
+      "name": "slotProps",
+      "type": "{ [P in keyof K]?: K[P] } | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The props used for each slot inside.",
+      "source": "typescript:public-props:HugoUIInputProps.slotProps",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "inputRef",
+      "type": "React.Ref<any> | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "Pass a ref to the `input` element.",
+      "source": "typescript:public-props:HugoUIInputProps.inputRef",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "className",
+      "type": "string | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "",
+      "source": "typescript:public-props:HugoUIInputProps.className",
+      "aiUsage": "discouraged"
+    },
+    {
+      "name": "style",
+      "type": "React.CSSProperties | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "",
+      "source": "typescript:public-props:HugoUIInputProps.style",
+      "aiUsage": "discouraged"
+    },
+    {
+      "name": "sx",
+      "type": "SxProps<Theme> | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The system prop that allows defining system overrides as well as additional CSS styles.",
+      "source": "typescript:public-props:HugoUIInputProps.sx",
+      "aiUsage": "discouraged"
+    }
+  ],
+  "relatedTypes": [
+    {
+      "name": "HugoUIInputExtraProps",
+      "kind": "type",
+      "source": "packages/mui/src/Input/Input.tsx",
+      "properties": [
+        {
+          "name": "extraMessage",
+          "type": "React.ReactNode",
+          "required": false,
+          "values": [],
+          "description": "Used for the success/error message\n\nShould only be used with `color=\"success\"` or `color=\"error\"`\n\nType: `node` (supports `React.ReactNode`)",
+          "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.extraMessage"
+        },
+        {
+          "name": "value",
+          "type": "string",
+          "required": false,
+          "values": [],
+          "description": "The value of the `input` element, required for a controlled component.",
+          "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.value"
+        },
+        {
+          "name": "mini",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "If `true`, show mini input",
+          "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.mini"
+        },
+        {
+          "name": "icon",
+          "type": "React.ReactNode",
+          "required": false,
+          "values": [],
+          "description": "Used for customizing the postfix icon.",
+          "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.icon"
+        },
+        {
+          "name": "showCount",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Only used for `multiline`. To show/hide the word count below the field",
+          "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.showCount"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "If `true`, show loading status",
+          "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.loading"
+        },
+        {
+          "name": "placeholder",
+          "type": "string",
+          "required": false,
+          "values": [],
+          "description": "Input placeholder",
+          "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.placeholder"
+        },
+        {
+          "name": "autoFocusByKeyboard",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "If `true`, when `autoFocus` is true, it should be focus visible status",
+          "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputExtraProps.autoFocusByKeyboard"
+        }
+      ]
+    },
+    {
+      "name": "HugoUIInputCompatibilityProps",
+      "kind": "type",
+      "source": "packages/mui/src/Input/Input.tsx",
+      "properties": [
+        {
+          "name": "InputProps",
+          "type": "Partial<OutlinedInputProps>",
+          "required": false,
+          "values": [],
+          "description": "MUI v5 compatibility prop. Prefer `slotProps.input` for new code.",
+          "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputCompatibilityProps.InputProps"
+        },
+        {
+          "name": "inputProps",
+          "type": "React.InputHTMLAttributes<HTMLInputElement>",
+          "required": false,
+          "values": [],
+          "description": "MUI v5 compatibility prop. Prefer `slotProps.htmlInput` for new code.",
+          "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputCompatibilityProps.inputProps"
+        },
+        {
+          "name": "InputLabelProps",
+          "type": "Partial<MuiInputLabelProps>",
+          "required": false,
+          "values": [],
+          "description": "MUI v5 compatibility prop. Prefer `slotProps.inputLabel` for new code.",
+          "source": "typescript:component:packages/mui/src/Input/Input.tsx#HugoUIInputCompatibilityProps.InputLabelProps"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "name": "Basic input",
+      "source": "packages/storybook/src/stories/Input.stories.tsx#BasicInput",
+      "code": "<Input id=\"BasicInput\" label=\"Default input\" helperText=\"Helper text\" value=\"\" />"
+    },
+    {
+      "name": "Success status",
+      "source": "packages/storybook/src/stories/Input.stories.tsx#InputStatus",
+      "code": "<Input id=\"status-success\" color=\"success\" label=\"Success\" extraMessage=\"Success message\" />"
+    },
+    {
+      "name": "Multiline count",
+      "source": "packages/storybook/src/stories/Input.stories.tsx#MultilineInput",
+      "code": "<Input id=\"MultilineInput\" label=\"Notes\" multiline showCount />"
+    }
+  ],
+  "forbiddenProps": [],
+  "discouragedProps": [
+    {
+      "name": "InputProps",
+      "reason": "MUI v5 compatibility escape hatch. Prefer slotProps.input for new code."
+    },
+    {
+      "name": "inputProps",
+      "reason": "MUI v5 compatibility escape hatch. Prefer slotProps.htmlInput for new code."
+    },
+    {
+      "name": "InputLabelProps",
+      "reason": "MUI v5 compatibility escape hatch. Prefer slotProps.inputLabel for new code."
+    },
+    {
+      "name": "sx",
+      "reason": "Inherited MUI styling escape hatch. Prefer component props and theme tokens."
+    },
+    {
+      "name": "style",
+      "reason": "Use only for local layout integration."
+    },
+    {
+      "name": "className",
+      "reason": "Public styling escape hatch. Do not use to recreate internal HugoUIInput classes."
+    }
+  ],
+  "designMappings": {
+    "label": {
+      "prop": "label",
+      "notes": "Visible label for normal inputs; search inputs may use the label as placeholder."
+    },
+    "status": {
+      "props": [
+        "color",
+        "extraMessage"
+      ],
+      "values": {
+        "success": "Success status with InputStatus rendering for string extraMessage",
+        "error": "Error status with InputStatus rendering for string extraMessage",
+        "primary": "Default state"
+      }
+    },
+    "density": {
+      "prop": "mini",
+      "notes": "Use true for compact inputs."
+    },
+    "multilineCount": {
+      "props": [
+        "multiline",
+        "showCount"
+      ],
+      "notes": "showCount applies to multiline inputs and uses inputProps.maxLength or the default max length."
+    },
+    "loading": {
+      "prop": "loading",
+      "notes": "Shows an end adornment loading indicator and sets aria-busy on the HTML input."
+    }
+  },
+  "tokenPolicy": {
+    "usesSemanticRoles": true,
+    "preferredTokenLayer": "theme.hugoUIColorRoles",
+    "generationPolicy": [
+      "Use color=\"success\" or color=\"error\" only when extraMessage communicates that state.",
+      "Do not hardcode border, focus, success, or error colors.",
+      "Prefer slotProps over compatibility props for new generated code."
+    ]
+  },
+  "a11yRules": [
+    {
+      "id": "input-label",
+      "rule": "Provide label or an explicit aria label through html input props for generated inputs.",
+      "source": "packages/storybook/src/stories/Input.stories.tsx"
+    },
+    {
+      "id": "input-required",
+      "rule": "When required is true, the component marks the input aria-required and renders a visual required postfix.",
+      "source": "packages/mui/src/Input/Input.tsx"
+    },
+    {
+      "id": "input-error",
+      "rule": "When color is error, the component sets aria-invalid on the HTML input.",
+      "source": "packages/mui/src/Input/Input.tsx"
+    },
+    {
+      "id": "input-enter",
+      "rule": "For single-line inputs, Enter triggers the onBlur callback; multiline inputs preserve Enter for text entry.",
+      "source": "packages/mui/src/Input/input.test.tsx"
+    }
+  ],
+  "generationRules": [
+    {
+      "id": "input-controlled",
+      "rule": "Use value and onChange together for controlled examples."
+    },
+    {
+      "id": "input-status",
+      "rule": "Use extraMessage with color=\"success\" or color=\"error\" when displaying validation feedback."
+    },
+    {
+      "id": "input-compatibility",
+      "rule": "Do not choose InputProps, inputProps, or InputLabelProps by default; they are compatibility escape hatches."
+    }
+  ],
+  "validationRules": [
+    {
+      "id": "input-public-import",
+      "rule": "Generated code must import Input from @hugo-ui/mui."
+    },
+    {
+      "id": "input-status-pairing",
+      "rule": "If color is success or error, prefer a matching extraMessage."
+    }
+  ],
+  "evidence": {
+    "publicExport": "packages/mui/src/index.ts",
+    "propsType": "HugoUIInputProps",
+    "metadata": "ai-contract/packages/mui/metadata/components/Input.ai.json",
+    "stories": [
+      "packages/storybook/src/stories/Input.stories.tsx"
+    ],
+    "tests": [
+      "packages/mui/src/Input/input.test.tsx"
+    ]
+  },
+  "needsReview": true,
+  "needsReviewReason": "First contract version records compatibility props and selected TextField inherited props, but does not attempt to recommend every inherited MUI TextField option.",
+  "generatedAt": "2026-06-18T17:31:14.276Z",
+  "sourceCommit": "28b72aee375fb36e8b5b75e591b4a5c2725c8f78"
+}

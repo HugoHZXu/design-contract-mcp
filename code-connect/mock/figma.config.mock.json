@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "code-connect-template-shape-mock/v1",
+  "description": "Documentation-only mock of a Code Connect template setup. This file is not a real figma.config.json and must not be published.",
+  "componentPackage": "@hugo-ui/mui",
+  "notForPublish": true,
+  "templates": [
+    "code-connect/mock/Modal.figma.mock.ts",
+    "code-connect/mock/Input.figma.mock.ts",
+    "code-connect/mock/Button.figma.mock.ts"
+  ]
+}

@@ -1,0 +1,653 @@
+{
+  "schemaVersion": "component-contract/v1",
+  "packageName": "@hugo-ui/mui",
+  "packageVersion": "1.0.2",
+  "componentName": "Button",
+  "importName": "Button",
+  "importStatement": "import { Button } from '@hugo-ui/mui';",
+  "implementationName": "HugoUIButton",
+  "propsTypeName": "HugoUIButtonProps",
+  "sourceFiles": [
+    "packages/mui/src/Button/Button.tsx",
+    "packages/mui/src/Button/index.ts",
+    "packages/mui/src/Button/buttonTypes.ts",
+    "packages/mui/src/Button/styles/buttonTokens.ts",
+    "packages/mui/src/Button/button.test.tsx",
+    "packages/storybook/src/stories/Button.stories.tsx"
+  ],
+  "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The content of the component.",
+      "source": "typescript:public-props:HugoUIButtonProps.children",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "level",
+      "type": "'primary' | 'secondary' | 'tertiary'",
+      "required": false,
+      "values": ["primary", "secondary", "tertiary"],
+      "defaultValue": "primary",
+      "description": "The level of the button",
+      "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIPrimaryButtonStyleProps.level; typescript:component:packages/mui/src/Button/Button.tsx#HugoUISecondaryButtonStyleProps.level; typescript:component:packages/mui/src/Button/Button.tsx#HugoUITertiaryButtonStyleProps.level; typescript:component:packages/mui/src/Button/Button.tsx#HugoUIDestructButtonStyleProps.level; typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonStyleProps.level",
+      "aiUsage": "normal",
+      "sources": [
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIPrimaryButtonStyleProps.level; typescript:component:packages/mui/src/Button/Button.tsx#HugoUISecondaryButtonStyleProps.level",
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUISecondaryButtonStyleProps.level",
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUITertiaryButtonStyleProps.level",
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIDestructButtonStyleProps.level",
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonStyleProps.level",
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIPrimaryButtonStyleProps.level"
+      ]
+    },
+    {
+      "name": "colorTheme",
+      "type": "'purple' | 'white' | 'grey' | 'red'",
+      "required": false,
+      "values": ["purple", "white", "grey", "red"],
+      "defaultValue": "purple",
+      "description": "The color theme of the button",
+      "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIPrimaryButtonStyleProps.colorTheme; typescript:component:packages/mui/src/Button/Button.tsx#HugoUISecondaryButtonStyleProps.colorTheme; typescript:component:packages/mui/src/Button/Button.tsx#HugoUITertiaryButtonStyleProps.colorTheme; typescript:component:packages/mui/src/Button/Button.tsx#HugoUIDestructButtonStyleProps.colorTheme; typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonStyleProps.colorTheme",
+      "aiUsage": "normal",
+      "sources": [
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIPrimaryButtonStyleProps.colorTheme; typescript:component:packages/mui/src/Button/Button.tsx#HugoUISecondaryButtonStyleProps.colorTheme",
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUISecondaryButtonStyleProps.colorTheme",
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUITertiaryButtonStyleProps.colorTheme",
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIDestructButtonStyleProps.colorTheme",
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonStyleProps.colorTheme",
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIPrimaryButtonStyleProps.colorTheme"
+      ]
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'",
+      "required": false,
+      "values": ["small", "medium", "large"],
+      "defaultValue": "medium",
+      "description": "The size of the button",
+      "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.size",
+      "aiUsage": "normal",
+      "sources": [
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.size"
+      ]
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "Indicates whether the button is loading",
+      "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loading",
+      "aiUsage": "normal",
+      "sources": [
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loading"
+      ]
+    },
+    {
+      "name": "loadingPosition",
+      "type": "'start' | 'center'",
+      "required": false,
+      "values": ["start", "center"],
+      "defaultValue": "start",
+      "description": "The loading indicator can be positioned on the start or the center of the button.",
+      "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loadingPosition",
+      "aiUsage": "normal",
+      "sources": [
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loadingPosition"
+      ]
+    },
+    {
+      "name": "labelHidden",
+      "type": "boolean",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "Indicates whether the label is hidden; used to save the space on smaller screens",
+      "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.labelHidden",
+      "aiUsage": "normal",
+      "sources": [
+        "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.labelHidden"
+      ]
+    },
+    {
+      "name": "disabled",
+      "type": "boolean | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "If `true`, the component is disabled.",
+      "source": "typescript:public-props:HugoUIButtonProps.disabled",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "startIcon",
+      "type": "React.ReactNode",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "Element placed before the children.",
+      "source": "typescript:public-props:HugoUIButtonProps.startIcon",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "endIcon",
+      "type": "React.ReactNode",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "Element placed after the children.",
+      "source": "typescript:public-props:HugoUIButtonProps.endIcon",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "fullWidth",
+      "type": "boolean | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "If `true`, the button will take up the full width of its container.",
+      "source": "typescript:public-props:HugoUIButtonProps.fullWidth",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "type",
+      "type": "string | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The HTML [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#type)\nattribute applied to `button` and `a` elements.\nIgnored when rendering non-native buttons.",
+      "source": "typescript:public-props:HugoUIButtonProps.type",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "onClick",
+      "type": "MouseEventHandler<T> | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "",
+      "source": "typescript:public-props:HugoUIButtonProps.onClick",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "href",
+      "type": "string | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The URL to link to when the button is clicked.\nIf defined, an `a` element will be used as the root node.",
+      "source": "typescript:public-props:HugoUIButtonProps.href",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "rel",
+      "type": "string | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "",
+      "source": "typescript:public-props:HugoUIButtonProps.rel",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "tabIndex",
+      "type": "NonNullable<React.HTMLAttributes<any>['tabIndex']> | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "",
+      "source": "typescript:public-props:HugoUIButtonProps.tabIndex",
+      "aiUsage": "normal"
+    },
+    {
+      "name": "className",
+      "type": "string | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "",
+      "source": "typescript:public-props:HugoUIButtonProps.className",
+      "aiUsage": "discouraged"
+    },
+    {
+      "name": "style",
+      "type": "React.CSSProperties | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "",
+      "source": "typescript:public-props:HugoUIButtonProps.style",
+      "aiUsage": "discouraged"
+    },
+    {
+      "name": "sx",
+      "type": "SxProps<Theme> | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "The system prop that allows defining system overrides as well as additional CSS styles.",
+      "source": "typescript:public-props:HugoUIButtonProps.sx",
+      "aiUsage": "discouraged"
+    },
+    {
+      "name": "component",
+      "type": "React.ElementType | undefined",
+      "required": false,
+      "values": [],
+      "defaultValue": null,
+      "description": "Inherited MUI root element override. Do not use by default in AI-generated Button usage.",
+      "source": "typescript:public-props:HugoUIButtonProps.component",
+      "aiUsage": "discouraged"
+    }
+  ],
+  "relatedTypes": [
+    {
+      "name": "HugoUIButtonCommonProps",
+      "kind": "interface",
+      "source": "packages/mui/src/Button/Button.tsx",
+      "properties": [
+        {
+          "name": "size",
+          "type": "HugoUIButtonSize",
+          "required": false,
+          "values": ["small", "medium", "large"],
+          "description": "The size of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.size"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the button is loading",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loading"
+        },
+        {
+          "name": "loadingPosition",
+          "type": "'start' | 'center'",
+          "required": false,
+          "values": ["start", "center"],
+          "description": "The loading indicator can be positioned on the start or the center of the button.",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loadingPosition"
+        },
+        {
+          "name": "labelHidden",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the label is hidden; used to save the space on smaller screens",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.labelHidden"
+        }
+      ]
+    },
+    {
+      "name": "HugoUIPrimaryButtonProps",
+      "kind": "type",
+      "source": "packages/mui/src/Button/Button.tsx",
+      "properties": [
+        {
+          "name": "level",
+          "type": "'primary'",
+          "required": false,
+          "values": ["primary"],
+          "description": "The level of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIPrimaryButtonStyleProps.level"
+        },
+        {
+          "name": "colorTheme",
+          "type": "'purple' | 'white'",
+          "required": false,
+          "values": ["purple", "white"],
+          "description": "The color theme of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIPrimaryButtonStyleProps.colorTheme"
+        },
+        {
+          "name": "size",
+          "type": "HugoUIButtonSize",
+          "required": false,
+          "values": ["small", "medium", "large"],
+          "description": "The size of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.size"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the button is loading",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loading"
+        },
+        {
+          "name": "loadingPosition",
+          "type": "'start' | 'center'",
+          "required": false,
+          "values": ["start", "center"],
+          "description": "The loading indicator can be positioned on the start or the center of the button.",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loadingPosition"
+        },
+        {
+          "name": "labelHidden",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the label is hidden; used to save the space on smaller screens",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.labelHidden"
+        }
+      ]
+    },
+    {
+      "name": "HugoUISecondaryButtonProps",
+      "kind": "type",
+      "source": "packages/mui/src/Button/Button.tsx",
+      "properties": [
+        {
+          "name": "level",
+          "type": "'secondary'",
+          "required": true,
+          "values": ["secondary"],
+          "description": "The level of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUISecondaryButtonStyleProps.level"
+        },
+        {
+          "name": "colorTheme",
+          "type": "'purple' | 'grey' | 'white'",
+          "required": false,
+          "values": ["purple", "white", "grey"],
+          "description": "The color theme of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUISecondaryButtonStyleProps.colorTheme"
+        },
+        {
+          "name": "size",
+          "type": "HugoUIButtonSize",
+          "required": false,
+          "values": ["small", "medium", "large"],
+          "description": "The size of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.size"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the button is loading",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loading"
+        },
+        {
+          "name": "loadingPosition",
+          "type": "'start' | 'center'",
+          "required": false,
+          "values": ["start", "center"],
+          "description": "The loading indicator can be positioned on the start or the center of the button.",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loadingPosition"
+        },
+        {
+          "name": "labelHidden",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the label is hidden; used to save the space on smaller screens",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.labelHidden"
+        }
+      ]
+    },
+    {
+      "name": "HugoUITertiaryButtonProps",
+      "kind": "type",
+      "source": "packages/mui/src/Button/Button.tsx",
+      "properties": [
+        {
+          "name": "level",
+          "type": "'tertiary'",
+          "required": true,
+          "values": ["tertiary"],
+          "description": "The level of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUITertiaryButtonStyleProps.level"
+        },
+        {
+          "name": "colorTheme",
+          "type": "'purple' | 'grey' | 'white'",
+          "required": false,
+          "values": ["purple", "white", "grey"],
+          "description": "The color theme of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUITertiaryButtonStyleProps.colorTheme"
+        },
+        {
+          "name": "size",
+          "type": "HugoUIButtonSize",
+          "required": false,
+          "values": ["small", "medium", "large"],
+          "description": "The size of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.size"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the button is loading",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loading"
+        },
+        {
+          "name": "loadingPosition",
+          "type": "'start' | 'center'",
+          "required": false,
+          "values": ["start", "center"],
+          "description": "The loading indicator can be positioned on the start or the center of the button.",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loadingPosition"
+        },
+        {
+          "name": "labelHidden",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the label is hidden; used to save the space on smaller screens",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.labelHidden"
+        }
+      ]
+    },
+    {
+      "name": "HugoUIDestructButtonProps",
+      "kind": "type",
+      "source": "packages/mui/src/Button/Button.tsx",
+      "properties": [
+        {
+          "name": "level",
+          "type": "'primary'",
+          "required": false,
+          "values": ["primary"],
+          "description": "The level of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIDestructButtonStyleProps.level"
+        },
+        {
+          "name": "colorTheme",
+          "type": "'red'",
+          "required": true,
+          "values": ["red"],
+          "description": "The color theme of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIDestructButtonStyleProps.colorTheme"
+        },
+        {
+          "name": "size",
+          "type": "HugoUIButtonSize",
+          "required": false,
+          "values": ["small", "medium", "large"],
+          "description": "The size of the button",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.size"
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the button is loading",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loading"
+        },
+        {
+          "name": "loadingPosition",
+          "type": "'start' | 'center'",
+          "required": false,
+          "values": ["start", "center"],
+          "description": "The loading indicator can be positioned on the start or the center of the button.",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.loadingPosition"
+        },
+        {
+          "name": "labelHidden",
+          "type": "boolean",
+          "required": false,
+          "values": [],
+          "description": "Indicates whether the label is hidden; used to save the space on smaller screens",
+          "source": "typescript:component:packages/mui/src/Button/Button.tsx#HugoUIButtonCommonProps.labelHidden"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "name": "Primary action",
+      "source": "packages/storybook/src/stories/Button.stories.tsx#PrimaryDefault",
+      "code": "<Button level=\"primary\" colorTheme=\"purple\" type=\"button\">Button</Button>"
+    },
+    {
+      "name": "Secondary action",
+      "source": "packages/storybook/src/stories/Button.stories.tsx#SecondaryDefault",
+      "code": "<Button level=\"secondary\" colorTheme=\"purple\" type=\"button\">Button</Button>"
+    },
+    {
+      "name": "Center loading",
+      "source": "packages/storybook/src/stories/Button.stories.tsx#ButtonLoading",
+      "code": "<Button loading loadingPosition=\"center\" type=\"button\">Loading</Button>"
+    }
+  ],
+  "forbiddenProps": [
+    {
+      "name": "color",
+      "reason": "HugoUIButtonCommonProps omits MUI ButtonProps color. Use colorTheme instead.",
+      "source": "packages/mui/src/Button/Button.tsx"
+    },
+    {
+      "name": "variant",
+      "reason": "HugoUIButtonCommonProps omits MUI ButtonProps variant. Use level instead.",
+      "source": "packages/mui/src/Button/Button.tsx"
+    }
+  ],
+  "discouragedProps": [
+    {
+      "name": "sx",
+      "reason": "Public MUI escape hatch. AI-generated usage should prefer level, colorTheme, and size before raw style overrides."
+    },
+    {
+      "name": "style",
+      "reason": "Public React escape hatch. Use only for layout integration that cannot be expressed by component props."
+    },
+    {
+      "name": "className",
+      "reason": "Public styling escape hatch. Do not use to recreate internal HugoUIButton classes."
+    },
+    {
+      "name": "component",
+      "reason": "Inherited MUI root element escape hatch. AI-generated usage should keep the default Button root unless integration explicitly requires an override."
+    }
+  ],
+  "designMappings": {
+    "hierarchy": {
+      "prop": "level",
+      "values": {
+        "primary": "Primary action",
+        "secondary": "Secondary action",
+        "tertiary": "Low-emphasis text action"
+      }
+    },
+    "tone": {
+      "prop": "colorTheme",
+      "values": {
+        "purple": "Default brand action",
+        "white": "Action on dark surface",
+        "grey": "Neutral secondary or tertiary action",
+        "red": "Destructive primary action"
+      }
+    },
+    "density": {
+      "prop": "size",
+      "values": {
+        "small": "Compact action",
+        "medium": "Default action",
+        "large": "Prominent action"
+      }
+    },
+    "loading": {
+      "props": ["loading", "loadingPosition"],
+      "notes": "loading disables click behavior; center loading preserves button width."
+    },
+    "iconOnly": {
+      "prop": "labelHidden",
+      "notes": "Use only when children provides an accessible label and an icon is visible."
+    }
+  },
+  "tokenPolicy": {
+    "usesSemanticRoles": true,
+    "preferredTokenLayer": "theme.hugoUIColorRoles",
+    "allowedComponentProps": ["level", "colorTheme", "size"],
+    "generationPolicy": [
+      "Do not hardcode raw color values for normal button usage.",
+      "Choose colorTheme and level instead of overriding MUI color or variant.",
+      "Use colorTheme=\"red\" only for destructive primary actions."
+    ]
+  },
+  "a11yRules": [
+    {
+      "id": "button-loading-busy",
+      "rule": "When loading is true, the component sets aria-busy and prevents click handling.",
+      "source": "packages/mui/src/Button/Button.tsx"
+    },
+    {
+      "id": "button-hidden-label",
+      "rule": "When labelHidden is true, children must be a meaningful accessible label.",
+      "source": "packages/mui/src/Button/button.test.tsx"
+    },
+    {
+      "id": "button-type",
+      "rule": "Use type=\"button\" unless the button is intentionally submitting or resetting a form.",
+      "source": "packages/storybook/src/stories/Button.stories.tsx"
+    }
+  ],
+  "generationRules": [
+    {
+      "id": "button-default",
+      "rule": "Default generated Button usage should use level=\"primary\", colorTheme=\"purple\", size=\"medium\", and type=\"button\" unless the design indicates otherwise."
+    },
+    {
+      "id": "button-destructive",
+      "rule": "Use colorTheme=\"red\" with the primary level for destructive actions."
+    },
+    {
+      "id": "button-icons",
+      "rule": "Use startIcon or endIcon only when the icon adds meaning or improves recognition; keep visible text unless labelHidden is required."
+    }
+  ],
+  "validationRules": [
+    {
+      "id": "button-public-import",
+      "rule": "Generated code must import Button from @hugo-ui/mui."
+    },
+    {
+      "id": "button-no-variant-color",
+      "rule": "Generated code must not use MUI color or variant props on Button."
+    }
+  ],
+  "evidence": {
+    "publicExport": "packages/mui/src/index.ts",
+    "propsType": "HugoUIButtonProps",
+    "metadata": "ai-contract/packages/mui/metadata/components/Button.ai.json",
+    "stories": ["packages/storybook/src/stories/Button.stories.tsx"],
+    "tests": ["packages/mui/src/Button/button.test.tsx"]
+  },
+  "needsReview": true,
+  "needsReviewReason": "First contract version includes component-authored props plus selected inherited props that are used by source, stories, or tests. Review before treating all inherited MUI escape hatches as covered.",
+  "generatedAt": "2026-06-18T16:49:50.895Z",
+  "sourceCommit": "28b72aee375fb36e8b5b75e591b4a5c2725c8f78"
+}

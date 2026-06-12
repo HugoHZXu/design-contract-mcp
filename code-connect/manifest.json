@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "code-connect-local-mock/v1",
+  "description": "Local Code Connect-style mapping metadata. This is not published to Figma and does not claim official Code Connect compatibility.",
+  "componentPackage": "@hugo-ui/mui",
+  "mappings": [
+    {
+      "nodeId": "node-modal",
+      "figmaNodeName": "Modal",
+      "figmaComponent": "Dialog/Modal",
+      "componentName": "Modal",
+      "importName": "Modal",
+      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Modal.contract.json",
+      "propMapping": {
+        "text.title": "title",
+        "text.description": "subTitle",
+        "componentProperties.State.value=open": "open",
+        "componentProperties.Type.value": "type"
+      }
+    },
+    {
+      "nodeId": "node-input-first-name",
+      "figmaNodeName": "Input/Text",
+      "figmaComponent": "Form/Input",
+      "componentName": "Input",
+      "importName": "Input",
+      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Input.contract.json",
+      "propMapping": {
+        "text.label": "label",
+        "componentProperties.Required.value": "required"
+      },
+      "ignoredDesignFields": [
+        {
+          "path": "text.value",
+          "reason": "Design sample content only. Do not hard-code as the runtime Input value."
+        }
+      ]
+    },
+    {
+      "nodeId": "node-input-last-name",
+      "figmaNodeName": "Input/Text",
+      "figmaComponent": "Form/Input",
+      "componentName": "Input",
+      "importName": "Input",
+      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Input.contract.json",
+      "propMapping": {
+        "text.label": "label",
+        "componentProperties.Required.value": "required"
+      },
+      "ignoredDesignFields": [
+        {
+          "path": "text.value",
+          "reason": "Design sample content only. Do not hard-code as the runtime Input value."
+        }
+      ]
+    },
+    {
+      "nodeId": "node-button-cancel",
+      "figmaNodeName": "Button/Secondary",
+      "figmaComponent": "Action/Button",
+      "componentName": "Button",
+      "importName": "Button",
+      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Button.contract.json",
+      "propMapping": {
+        "text.label": "children",
+        "componentProperties.Hierarchy.value": "level",
+        "componentProperties.Size.value": "size"
+      }
+    },
+    {
+      "nodeId": "node-button-save",
+      "figmaNodeName": "Button/Primary",
+      "figmaComponent": "Action/Button",
+      "componentName": "Button",
+      "importName": "Button",
+      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Button.contract.json",
+      "propMapping": {
+        "text.label": "children",
+        "componentProperties.Hierarchy.value": "level",
+        "componentProperties.Size.value": "size"
+      }
+    }
+  ]
+}

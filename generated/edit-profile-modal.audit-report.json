@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "generation-audit/v1",
+  "source": "captured Codex MCP run candidate",
+  "candidate": {
+    "path": "generated/edit-profile-modal.mcp-run.generated.jsx",
+    "sha256": "908a5bd9ba7a731420a4719b4db2e09aab563a2787a0ebd25b71165900dccad0",
+    "bytes": 1079,
+    "lineCount": 50
+  },
+  "context": {
+    "path": "generated/edit-profile-modal.context-pack.json",
+    "sha256": "8803aa40cc2c9482a5a53101b265cf94811c04c3b8e6f088ad2309ae3cb01279",
+    "frameId": "frame-edit-profile",
+    "componentPackage": "@hugo-ui/mui",
+    "expectedComponentUsage": [
+      {
+        "nodeId": "node-modal",
+        "componentName": "Modal",
+        "importName": "Modal",
+        "packageName": "@hugo-ui/mui"
+      },
+      {
+        "nodeId": "node-input-first-name",
+        "componentName": "Input",
+        "importName": "Input",
+        "packageName": "@hugo-ui/mui"
+      },
+      {
+        "nodeId": "node-input-last-name",
+        "componentName": "Input",
+        "importName": "Input",
+        "packageName": "@hugo-ui/mui"
+      },
+      {
+        "nodeId": "node-button-cancel",
+        "componentName": "Button",
+        "importName": "Button",
+        "packageName": "@hugo-ui/mui"
+      },
+      {
+        "nodeId": "node-button-save",
+        "componentName": "Button",
+        "importName": "Button",
+        "packageName": "@hugo-ui/mui"
+      }
+    ]
+  },
+  "validation": {
+    "valid": true,
+    "checks": [
+      {
+        "id": "imports",
+        "status": "pass",
+        "message": "Mapped components are imported from their contract packages."
+      },
+      {
+        "id": "props",
+        "status": "pass",
+        "message": "Generated component props match the contracts."
+      },
+      {
+        "id": "coverage",
+        "status": "pass",
+        "message": "Generated JSX covers the mapped components from the context pack."
+      },
+      {
+        "id": "raw-colors",
+        "status": "pass",
+        "message": "Generated code does not contain raw color literals."
+      }
+    ],
+    "violations": []
+  },
+  "staticReferences": [
+    {
+      "path": "generated/edit-profile-modal.generated.tsx",
+      "sha256": "99e48bd73ace2d4100eacf2c120e2626d71433674a5ff743c485b7c5f4ef2b45",
+      "bytes": 1172,
+      "similarity": 0.6724137931034483,
+      "exactNormalizedMatch": false
+    },
+    {
+      "path": "generated/edit-profile-modal.invalid.generated.tsx",
+      "sha256": "155fa39416bc2c402db8c01cdb4066f322b945530fb0a5e2584ce986add6f650",
+      "bytes": 298,
+      "similarity": 0.1839080459770115,
+      "exactNormalizedMatch": false
+    }
+  ],
+  "checks": [
+    {
+      "id": "contract-validation",
+      "status": "pass",
+      "message": "Candidate passes validator with expected component usage from the context pack."
+    },
+    {
+      "id": "context-binding",
+      "status": "pass",
+      "message": "Audit records the context pack hash used for validation."
+    },
+    {
+      "id": "distinct-from-static-samples",
+      "status": "pass",
+      "message": "Candidate similarity to static samples is below 0.98."
+    }
+  ],
+  "limitations": [
+    "This report is an audit trail, not a cryptographic proof of model intent.",
+    "It proves the candidate code was validated against a specific context pack and records similarity against known static samples.",
+    "For stronger provenance, capture the MCP tool-call transcript from the Codex session alongside this report."
+  ]
+}

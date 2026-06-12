@@ -1,0 +1,140 @@
+{
+  "componentName": "Modal",
+  "metadataVersion": "component-ai-metadata/v1",
+  "forbiddenProps": [],
+  "discouragedProps": [
+    {
+      "name": "slots",
+      "reason": "Inherited Dialog escape hatch. Use only when replacing MUI internals is required."
+    },
+    {
+      "name": "style",
+      "reason": "Use only for local layout integration."
+    },
+    {
+      "name": "className",
+      "reason": "Do not use to recreate internal HugoUIModal classes."
+    }
+  ],
+  "designMappings": {
+    "variant": {
+      "prop": "type",
+      "values": {
+        "transactional": "Default decision or action modal",
+        "destructive": "Destructive confirmation",
+        "warning": "Warning flow",
+        "informational": "Information-only modal",
+        "error": "Error modal",
+        "feedback": "Result feedback modal"
+      }
+    },
+    "actions": {
+      "prop": "buttonDefs",
+      "structure": {
+        "primary": "HugoUIModalPrimaryButtonProps",
+        "secondary": "HugoUIModalSecondaryButtonProps",
+        "tertiary": "HugoUIModalTertiaryButtonProps"
+      },
+      "notes": "Primary and secondary render HugoUIButton. Tertiary renders Link unless renderCustomComponent is supplied."
+    },
+    "feedback": {
+      "props": ["type", "messages"],
+      "notes": "messages is used when type is feedback and supports success, destructiveSuccess, and error message types."
+    },
+    "customRegions": {
+      "props": ["headerComponent", "footerComponent"],
+      "notes": "Use only when the standard title and footer do not match the design."
+    },
+    "loading": {
+      "props": ["loading", "showLoadingIndicator"],
+      "notes": "loading constrains action buttons; showLoadingIndicator controls panel-level loading feedback."
+    }
+  },
+  "tokenPolicy": {
+    "usesSemanticRoles": true,
+    "preferredTokenLayer": "theme.hugoUIColorRoles",
+    "generationPolicy": [
+      "Use type to choose visual intent instead of overriding modal colors.",
+      "Do not hardcode header, icon, footer, focus, warning, or error colors.",
+      "Use buttonDefs to customize modal actions rather than replacing the footer by default."
+    ]
+  },
+  "a11yRules": [
+    {
+      "id": "modal-open-controlled",
+      "rule": "Modal requires open to be controlled by the caller.",
+      "source": "packages/mui/src/Modal/Modal.tsx"
+    },
+    {
+      "id": "modal-close",
+      "rule": "Provide onClose when the modal should close from Escape, backdrop, close button, or secondary action.",
+      "source": "packages/mui/src/Modal/Modal.test.tsx"
+    },
+    {
+      "id": "modal-title-label",
+      "rule": "A string title becomes aria-label; a non-string title uses aria-labelledby through ModalTitle.",
+      "source": "packages/mui/src/Modal/Modal.tsx"
+    },
+    {
+      "id": "modal-feedback",
+      "rule": "Feedback messages should provide meaningful message text and optional description.",
+      "source": "packages/mui/src/Modal/Feedback.tsx"
+    }
+  ],
+  "generationRules": [
+    {
+      "id": "modal-default",
+      "rule": "Default generated Modal usage should use type=\"transactional\", a controlled open prop, onClose, title, children, and buttonDefs.primary."
+    },
+    {
+      "id": "modal-actions",
+      "rule": "Use buttonDefs.primary for the main action, buttonDefs.secondary for cancel/back, and buttonDefs.tertiary for low-emphasis link actions."
+    },
+    {
+      "id": "modal-feedback",
+      "rule": "For completion messages, use type=\"feedback\" with messages instead of manually composing a transactional modal."
+    }
+  ],
+  "validationRules": [
+    {
+      "id": "modal-public-import",
+      "rule": "Generated code must import Modal from @hugo-ui/mui."
+    },
+    {
+      "id": "modal-controlled-open",
+      "rule": "Generated code must pass open explicitly."
+    },
+    {
+      "id": "modal-buttondefs-shape",
+      "rule": "buttonDefs may contain primary, secondary, and tertiary entries matching the ModalFooter public types."
+    }
+  ],
+  "examples": [
+    {
+      "name": "Transactional modal",
+      "source": "packages/storybook/src/stories/Modal.stories.tsx#Transactional",
+      "code": "<Modal open={open} onClose={handleClose} title=\"Transactional\" type=\"transactional\" buttonDefs={{ primary: { onClick: handleSave } }}>Content</Modal>"
+    },
+    {
+      "name": "Destructive modal",
+      "source": "packages/storybook/src/stories/Modal.stories.tsx#Destructive",
+      "code": "<Modal open={open} onClose={handleClose} title=\"Destructive\" type=\"destructive\" buttonDefs={{ primary: { onClick: handleConfirm } }}>Content</Modal>"
+    },
+    {
+      "name": "Feedback modal",
+      "source": "packages/storybook/src/stories/Modal.stories.tsx#FeedbackSuccess",
+      "code": "<Modal open={open} onClose={handleClose} type=\"feedback\" messages={[{ type: 'success', message: 'Success message' }]} />"
+    }
+  ],
+  "propOverrides": {
+    "type": {
+      "defaultValue": "transactional",
+      "description": "Visual and behavioral intent of the modal."
+    },
+    "closeButton": {
+      "description": "Controls whether the modal title renders a close button. Error, informational, and feedback modals are closeable by default."
+    }
+  },
+  "needsReview": true,
+  "needsReviewReason": "First contract version captures Modal and ModalFooter public structures, but inherited Dialog props are intentionally not exhaustively recommended."
+}

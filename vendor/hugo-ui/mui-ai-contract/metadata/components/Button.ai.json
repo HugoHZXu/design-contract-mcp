@@ -1,0 +1,159 @@
+{
+  "componentName": "Button",
+  "metadataVersion": "component-ai-metadata/v1",
+  "forbiddenProps": [
+    {
+      "name": "color",
+      "reason": "HugoUIButtonCommonProps omits MUI ButtonProps color. Use colorTheme instead.",
+      "source": "packages/mui/src/Button/Button.tsx"
+    },
+    {
+      "name": "variant",
+      "reason": "HugoUIButtonCommonProps omits MUI ButtonProps variant. Use level instead.",
+      "source": "packages/mui/src/Button/Button.tsx"
+    }
+  ],
+  "discouragedProps": [
+    {
+      "name": "sx",
+      "reason": "Public MUI escape hatch. AI-generated usage should prefer level, colorTheme, and size before raw style overrides."
+    },
+    {
+      "name": "style",
+      "reason": "Public React escape hatch. Use only for layout integration that cannot be expressed by component props."
+    },
+    {
+      "name": "className",
+      "reason": "Public styling escape hatch. Do not use to recreate internal HugoUIButton classes."
+    },
+    {
+      "name": "component",
+      "reason": "Inherited MUI root element escape hatch. AI-generated usage should keep the default Button root unless integration explicitly requires an override."
+    }
+  ],
+  "designMappings": {
+    "hierarchy": {
+      "prop": "level",
+      "values": {
+        "primary": "Primary action",
+        "secondary": "Secondary action",
+        "tertiary": "Low-emphasis text action"
+      }
+    },
+    "tone": {
+      "prop": "colorTheme",
+      "values": {
+        "purple": "Default brand action",
+        "white": "Action on dark surface",
+        "grey": "Neutral secondary or tertiary action",
+        "red": "Destructive primary action"
+      }
+    },
+    "density": {
+      "prop": "size",
+      "values": {
+        "small": "Compact action",
+        "medium": "Default action",
+        "large": "Prominent action"
+      }
+    },
+    "loading": {
+      "props": ["loading", "loadingPosition"],
+      "notes": "loading disables click behavior; center loading preserves button width."
+    },
+    "iconOnly": {
+      "prop": "labelHidden",
+      "notes": "Use only when children provides an accessible label and an icon is visible."
+    }
+  },
+  "tokenPolicy": {
+    "usesSemanticRoles": true,
+    "preferredTokenLayer": "theme.hugoUIColorRoles",
+    "allowedComponentProps": ["level", "colorTheme", "size"],
+    "generationPolicy": [
+      "Do not hardcode raw color values for normal button usage.",
+      "Choose colorTheme and level instead of overriding MUI color or variant.",
+      "Use colorTheme=\"red\" only for destructive primary actions."
+    ]
+  },
+  "a11yRules": [
+    {
+      "id": "button-loading-busy",
+      "rule": "When loading is true, the component sets aria-busy and prevents click handling.",
+      "source": "packages/mui/src/Button/Button.tsx"
+    },
+    {
+      "id": "button-hidden-label",
+      "rule": "When labelHidden is true, children must be a meaningful accessible label.",
+      "source": "packages/mui/src/Button/button.test.tsx"
+    },
+    {
+      "id": "button-type",
+      "rule": "Use type=\"button\" unless the button is intentionally submitting or resetting a form.",
+      "source": "packages/storybook/src/stories/Button.stories.tsx"
+    }
+  ],
+  "generationRules": [
+    {
+      "id": "button-default",
+      "rule": "Default generated Button usage should use level=\"primary\", colorTheme=\"purple\", size=\"medium\", and type=\"button\" unless the design indicates otherwise."
+    },
+    {
+      "id": "button-destructive",
+      "rule": "Use colorTheme=\"red\" with the primary level for destructive actions."
+    },
+    {
+      "id": "button-icons",
+      "rule": "Use startIcon or endIcon only when the icon adds meaning or improves recognition; keep visible text unless labelHidden is required."
+    }
+  ],
+  "validationRules": [
+    {
+      "id": "button-public-import",
+      "rule": "Generated code must import Button from @hugo-ui/mui."
+    },
+    {
+      "id": "button-no-variant-color",
+      "rule": "Generated code must not use MUI color or variant props on Button."
+    }
+  ],
+  "examples": [
+    {
+      "name": "Primary action",
+      "source": "packages/storybook/src/stories/Button.stories.tsx#PrimaryDefault",
+      "code": "<Button level=\"primary\" colorTheme=\"purple\" type=\"button\">Button</Button>"
+    },
+    {
+      "name": "Secondary action",
+      "source": "packages/storybook/src/stories/Button.stories.tsx#SecondaryDefault",
+      "code": "<Button level=\"secondary\" colorTheme=\"purple\" type=\"button\">Button</Button>"
+    },
+    {
+      "name": "Center loading",
+      "source": "packages/storybook/src/stories/Button.stories.tsx#ButtonLoading",
+      "code": "<Button loading loadingPosition=\"center\" type=\"button\">Loading</Button>"
+    }
+  ],
+  "propOverrides": {
+    "level": {
+      "defaultValue": "primary"
+    },
+    "colorTheme": {
+      "defaultValue": "purple"
+    },
+    "size": {
+      "defaultValue": "medium"
+    },
+    "loadingPosition": {
+      "defaultValue": "start"
+    },
+    "component": {
+      "type": "React.ElementType | undefined",
+      "values": [],
+      "aiUsage": "discouraged",
+      "description": "Inherited MUI root element override. Do not use by default in AI-generated Button usage."
+    }
+  },
+  "needsReview": true,
+  "needsReviewReason": "First contract version includes component-authored props plus selected inherited props that are used by source, stories, or tests. Review before treating all inherited MUI escape hatches as covered."
+}

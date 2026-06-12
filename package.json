@@ -1,0 +1,42 @@
+{
+  "name": "figma-contract-mcp-demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A contract-first design-to-code architecture demo consuming a vendored @hugo-ui/mui AI contract snapshot.",
+  "scripts": {
+    "dev": "vite --config demo-app/vite.config.ts",
+    "build": "vite build --config demo-app/vite.config.ts",
+    "preview": "vite preview --config demo-app/vite.config.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "figma:normalize": "tsx scripts/normalize-figma-fixture.ts",
+    "mcp:server": "tsx mcp-server/src/server.ts",
+    "mcp:context": "tsx mcp-server/src/local-cli.ts build-generation-context frame-edit-profile",
+    "mcp:design": "tsx mcp-server/src/local-cli.ts get-design-context frame-edit-profile",
+    "contract:sync:hugo-ui": "node scripts/sync-hugo-ui-contract.mjs",
+    "contract:verify:hugo-ui": "node scripts/sync-hugo-ui-contract.mjs --verify-only",
+    "precontext:pack": "npm run figma:normalize",
+    "context:pack": "tsx mcp-server/src/generate-context-pack.ts frame-edit-profile generated/edit-profile-modal.context-pack.json",
+    "preaudit:generated": "npm run context:pack",
+    "audit:generated": "tsx scripts/audit-generated-output.ts generated/edit-profile-modal.mcp-run.generated.jsx --context-pack generated/edit-profile-modal.context-pack.json --reference generated/edit-profile-modal.generated.tsx --reference generated/edit-profile-modal.invalid.generated.tsx --output generated/edit-profile-modal.audit-report.json --expect-valid --expect-distinct",
+    "prevalidate": "npm run context:pack",
+    "validate": "tsx mcp-server/src/local-cli.ts validate-file generated/edit-profile-modal.generated.tsx --context-pack generated/edit-profile-modal.context-pack.json --expect-valid",
+    "prevalidate:bad": "npm run context:pack",
+    "validate:bad": "tsx mcp-server/src/local-cli.ts validate-file generated/edit-profile-modal.invalid.generated.tsx --context-pack generated/edit-profile-modal.context-pack.json --expect-invalid"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.13.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "@types/react": "^18.3.23",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.5.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  }
+}

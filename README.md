@@ -1,0 +1,263 @@
+# figma-contract-mcp-demo
+
+A contract-first design-to-code architecture demo that consumes a vendored `@hugo-ui/mui` AI contract snapshot.
+
+This repository is the contract consumer side of a two-repository demo:
+
+- `hugo-ui` publishes a versioned `@hugo-ui/mui` AI contract artifact through GitHub Releases.
+- `figma-contract-mcp-demo` vendors that artifact snapshot and exposes it through MCP tools, a context pack, a validator, and a focused demo UI.
+
+## What This Is
+
+This project shows AI application/tooling patterns:
+
+1. A local Figma API-shaped raw mock snapshot.
+2. Normalized Figma-like design data as JSON fixtures.
+3. Code Connect-style component mapping as local metadata.
+4. A vendored design-system AI contract snapshot from `@hugo-ui/mui`.
+5. A thin MCP server exposing design and codegen context.
+6. A validator for generated React component usage.
+7. A simple three-column demo UI showing the chain.
+
+## What This Is Not
+
+- It is not a complete Figma-to-code product.
+- It does not connect to the live Figma API.
+- It does not publish or integrate with official Figma Code Connect.
+- It does not support arbitrary Figma files.
+- It does not attempt production-grade design fidelity.
+- It does not call business APIs.
+- It does not call an LLM inside the MCP server.
+- It does not require `@hugo-ui/mui` as a runtime npm dependency for the preview UI.
+
+## Architecture
+
+```text
+hugo-ui GitHub Release artifact
+  hugo-ui-mui-ai-contract-v<version>.tgz + .sha256
+        |
+        v
+vendor/hugo-ui/mui-ai-contract/
+  reproducible vendored snapshot
+        |
+        v
+fixtures/figma/raw/
+  local Figma API-shaped snapshot mock
+        |
+        v
+scripts/normalize-figma-fixture.ts
+  deterministic fixture normalization
+        |
+        v
+fixtures/figma/
+  normalized local design frame data
+        |
+        v
+code-connect/manifest.json
+  local Code Connect-style node-to-component mapping
+        |
+        v
+mcp-server/
+  thin local context server, contract adapter, and validator
+        |
+        v
+generated/edit-profile-modal.context-pack.json
+  resolved design, mapping, real contracts, tokens, pattern, expected usage
+        |
+        v
+generated/
+  generated React samples
+        |
+        v
+validator
+  import, prop, coverage, forbidden prop, and raw color checks
+        |
+        v
+demo-app/
+  three-column visualization
+```
+
+The demo UI renders:
+
+- left: design tree,
+- middle: resolved mapping and component contract,
+- right: generated code and validation report.
+
+The preview shim at `demo-app/src/hugo-ui-preview.tsx` is only for local visualization. Validation uses the real `@hugo-ui/mui` AI contract snapshot from `vendor/hugo-ui/mui-ai-contract`.
+
+## Install
+
+```bash
+npm install
+```
+
+## Recommended Local Flow
+
+```bash
+npm run contract:verify:hugo-ui
+npm run figma:normalize
+npm run context:pack
+npm run audit:generated
+npm run validate
+npm run validate:bad
+npm run dev
+```
+
+Vite will print a local URL, usually `http://localhost:5173`.
+
+## Sync A New hugo-ui Contract Release
+
+The formal open-source flow is to sync from a GitHub Release asset:
+
+```bash
+npm run contract:sync:hugo-ui -- \
+  --repo <owner>/hugo-ui \
+  --tag mui-ai-contract-v<version>
+```
+
+The script downloads `hugo-ui-mui-ai-contract-v<version>.tgz`, downloads and verifies the matching `.tgz.sha256`, extracts the snapshot into `vendor/hugo-ui/mui-ai-contract/`, verifies required files, and checks `provenance.json`.
+
+The sync flow requires the release tag, artifact filename, and `provenance.contractVersion` to agree. For example, `mui-ai-contract-v<version>` must contain `hugo-ui-mui-ai-contract-v<version>.tgz`, and the extracted provenance must report `contractVersion: "<version>"`.
+
+For local release-development work, the script can also consume an already downloaded artifact:
+
+```bash
+npm run contract:sync:hugo-ui -- \
+  --from-file /path/to/hugo-ui-mui-ai-contract-v<version>.tgz
+```
+
+This local mode is a convenience only. Public docs and reproducible setup should use GitHub Releases.
+
+## Run The MCP Server
+
+```bash
+npm run mcp:server
+```
+
+Use this command for manual local debugging. When configuring a real MCP client, start the server process directly instead of going through `npm run`:
+
+```bash
+./node_modules/.bin/tsx mcp-server/src/server.ts
+```
+
+The server is an MCP stdio server. It exposes local JSON-backed tools only:
+
+- `get_design_context(frameId)`
+- `get_code_connect_map(nodeId)`
+- `get_component_contract(componentName)`
+- `build_generation_context(frameId)`
+- `validate_generated_code(code, expectedComponentUsage)`
+
+The MCP server reads local fixture and vendor snapshot files. It does not call an LLM.
+
+## Run The Same Tools Locally
+
+Normalize the Figma API-shaped raw mock into the smaller fixture shape consumed by the MCP tools:
+
+```bash
+npm run figma:normalize
+```
+
+Generate the context pack used by the demo UI and validator:
+
+```bash
+npm run context:pack
+```
+
+`npm run context:pack` runs `npm run figma:normalize` first so the committed normalized fixture stays derived from the raw mock snapshot.
+
+Build generation context:
+
+```bash
+npm run mcp:context
+```
+
+Read design context:
+
+```bash
+npm run mcp:design
+```
+
+Validate the passing generated sample:
+
+```bash
+npm run validate
+```
+
+Validate an intentionally failing generated sample:
+
+```bash
+npm run validate:bad
+```
+
+`npm run validate` asserts the sample is valid. `npm run validate:bad` asserts the invalid sample remains invalid, so CI fails if the negative sample accidentally starts passing.
+
+Audit a captured Codex MCP run candidate:
+
+```bash
+npm run audit:generated
+```
+
+This validates `generated/edit-profile-modal.mcp-run.generated.jsx` against the current context pack, records SHA-256 hashes for the candidate and context pack, and compares the candidate against the committed static samples. The deterministic report is written to `generated/edit-profile-modal.audit-report.json`.
+
+The audit report is evidence of a specific validation run and static-sample difference. It is not a cryptographic proof of model intent. For stronger provenance in a live demo, keep the Codex tool-call transcript showing `build_generation_context`, code generation, and `validate_generated_code` alongside the audit report.
+
+## Validation Scope
+
+The validator is deliberately simple. It checks:
+
+- mapped components are imported from their contract packages,
+- JSX props are listed in the adapted component contract,
+- forbidden props are not used,
+- generated JSX covers the expected mapped component usage from the context pack,
+- raw color literals such as `#FF0000`, `rgb(...)`, or `hsl(...)` are not present.
+
+It adapts the real `hugo-ui` contract shape from `props[]`, `forbiddenProps`, `discouragedProps`, `generationRules`, `validationRules`, and `tokenPolicy` into the internal validator format. The context pack still retains raw contract data for source traceability.
+
+It is not a TypeScript compiler, visual diffing system, accessibility checker, or production policy engine.
+
+## Trace Walkthrough
+
+The trusted chain starts with a local design node and ends with a validation report:
+
+1. Raw snapshot: `fixtures/figma/raw/edit-profile-modal.figma-file.mock.json` uses a Figma API-shaped `document` tree with `DOCUMENT`, `CANVAS`, `FRAME`, `INSTANCE`, and `TEXT` nodes, plus local `components`, `componentSets`, and `styles` maps.
+2. Normalized fixture: `npm run figma:normalize` writes `fixtures/figma/edit-profile-modal.fixture.json`, preserving node IDs, component IDs, typed component properties, selected layout data, text overrides, and component metadata.
+3. Design node: the normalized fixture contains `node-input-first-name`, an `Input/Text` instance with label text and sample value text extracted from raw text layers. Sample value text is retained for traceability, but the mapping does not hard-code it as an `Input value` prop.
+4. Mapping: `code-connect/manifest.json` maps `node-input-first-name` to `Input` from `@hugo-ui/mui` and points at `vendor/hugo-ui/mui-ai-contract/components/Input.contract.json`.
+5. Contract: the vendored `Input` contract defines the import package, prop list, `aiUsage` policy, discouraged props, generation rules, validation rules, and token policy.
+6. Adapter: `mcp-server/src/contract-adapters/hugo-ui-mui.ts` converts the real contract shape into the internal validator format while preserving `rawContract` and policy metadata.
+7. Context pack: `npm run context:pack` writes `generated/edit-profile-modal.context-pack.json`, combining the fixture frame, mapping metadata, vendored contracts, token policy, pattern rules, provenance, and `expectedComponentUsage`.
+8. JSX: `generated/edit-profile-modal.generated.tsx` imports `Button`, `Input`, and `Modal` from `@hugo-ui/mui`.
+9. Validator: `npm run validate` checks generated JSX against the adapted contracts and expected usage. The passing sample covers `Modal x1`, `Input x2`, and `Button x2`.
+
+The invalid sample intentionally violates the chain by importing from the wrong package, using forbidden props, containing raw colors, and omitting mapped component coverage:
+
+```bash
+npm run validate:bad
+```
+
+## Project Structure
+
+```text
+fixtures/figma/raw/                     Local Figma API-shaped raw snapshot mocks.
+fixtures/figma/                         Normalized local Figma-like JSON.
+code-connect/manifest.json              Local Code Connect-style mock manifest.
+code-connect/mock/                      Documentation-only Code Connect template shape mocks.
+vendor/hugo-ui/mui-ai-contract/         Vendored @hugo-ui/mui AI contract snapshot.
+contracts/patterns/                     Local page-level pattern contracts only.
+mcp-server/                             MCP stdio server, adapter, local CLI, validator.
+demo-app/                               Vite + React demo UI with preview shim.
+generated/                              Static samples, captured MCP-run candidate, context pack, and audit report.
+docs/                                   Architecture notes for future work.
+scripts/normalize-figma-fixture.ts      Raw mock to normalized fixture conversion.
+scripts/audit-generated-output.ts       Candidate validation and static-sample similarity audit.
+scripts/sync-hugo-ui-contract.mjs       Release artifact sync and verification script.
+```
+
+## Boundary Reminder
+
+All design input comes from fixtures. The raw snapshot is still a local mock, not a live Figma API response. Component API knowledge and token policy for the main chain come only from the vendored `@hugo-ui/mui` contract snapshot under `vendor/hugo-ui/mui-ai-contract/`. The `contracts/` tree is reserved for local pattern contracts, not component or token contracts. Code Connect is represented only as local mapping metadata and documentation-only template shape mocks. Generated React must go through the validator before it is treated as usable. No real Figma API, official Code Connect publish flow, or LLM call is part of this demo.
+
+## License
+
+MIT. See `LICENSE`.

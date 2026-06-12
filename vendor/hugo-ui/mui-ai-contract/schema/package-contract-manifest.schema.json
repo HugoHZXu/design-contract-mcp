@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hugo-ui.local/ai-contract/schema/package-contract-manifest.schema.json",
+  "title": "Hugo UI package AI contract manifest",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "packageName",
+    "packageVersion",
+    "sourcePackagePath",
+    "generatedAt",
+    "sourceCommit",
+    "components",
+    "tokenContract",
+    "notes"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "package-contract-manifest/v1"
+    },
+    "packageName": {
+      "type": "string"
+    },
+    "packageVersion": {
+      "type": "string"
+    },
+    "sourcePackagePath": {
+      "type": "string"
+    },
+    "generatedAt": {
+      "type": "string"
+    },
+    "sourceCommit": {
+      "type": "string"
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["componentName", "importName", "contract"],
+        "properties": {
+          "componentName": {
+            "type": "string"
+          },
+          "importName": {
+            "type": "string"
+          },
+          "contract": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "string"
+          },
+          "needsReview": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "minItems": 1
+    },
+    "tokenContract": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

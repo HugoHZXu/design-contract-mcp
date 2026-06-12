@@ -1,0 +1,10 @@
+{
+  "sourceRepo": "github.com/HugoHZXu/hugo-ui",
+  "sourceCommit": "48c2aad7dcaafeeeb85f3abe492f5f9d5313dc3f",
+  "sourcePackage": "@hugo-ui/mui",
+  "sourcePackagePath": "packages/mui",
+  "packageVersion": "1.0.2",
+  "contractVersion": "1.0.2",
+  "generatedAt": "2026-06-18T19:31:52.068Z",
+  "artifactFormat": "hugo-ui-mui-ai-contract/v1"
+}

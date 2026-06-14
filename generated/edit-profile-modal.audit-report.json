@@ -9,7 +9,7 @@
   },
   "context": {
     "path": "generated/edit-profile-modal.context-pack.json",
-    "sha256": "8803aa40cc2c9482a5a53101b265cf94811c04c3b8e6f088ad2309ae3cb01279",
+    "sha256": "a83f34548d7de25d43dc5b95cc1d09caacde11e37eac5d1ed889067ed8bf12df",
     "frameId": "frame-edit-profile",
     "componentPackage": "@hugo-ui/mui",
     "expectedComponentUsage": [

@@ -3,6 +3,7 @@ import {
   getCodeConnectMap,
   getComponentContract,
   getDesignContext,
+  getHugoUiContractStatus,
   readContextPack,
   validateGeneratedCodeTool,
   validateGeneratedFile
@@ -25,12 +26,27 @@ async function main() {
 
     case "get-component-contract":
     case "get_component_contract":
-      printJson(await getComponentContract(requiredArg(args[0], "componentName")));
+      printJson(
+        await getComponentContract(
+          requiredArg(args[0], "componentName"),
+          getContractVersionFlag(args)
+        )
+      );
       return;
 
     case "build-generation-context":
     case "build_generation_context":
-      printJson(await buildGenerationContext(requiredArg(args[0], "frameId")));
+      printJson(
+        await buildGenerationContext(
+          requiredArg(args[0], "frameId"),
+          getContractVersionFlag(args)
+        )
+      );
+      return;
+
+    case "get-contract-status":
+    case "get_contract_status":
+      printJson(await getHugoUiContractStatus());
       return;
 
     case "validate-file":
@@ -38,7 +54,8 @@ async function main() {
         await printValidationReport(
           await validateGeneratedFile(
             requiredArg(args[0], "relativePath"),
-            await readExpectedComponentUsage(args)
+            await readExpectedComponentUsage(args),
+            getContractVersionFlag(args)
           )
         ),
         args
@@ -51,7 +68,8 @@ async function main() {
         await printValidationReport(
           await validateGeneratedCodeTool(
             getPositionalArgs(args).join(" "),
-            await readExpectedComponentUsage(args)
+            await readExpectedComponentUsage(args),
+            getContractVersionFlag(args)
           )
         ),
         args
@@ -120,13 +138,27 @@ function getFlagValue(args: string[], flagName: string): string | undefined {
     ?.slice(inlinePrefix.length);
 }
 
+function getContractVersionFlag(args: string[]): string | undefined {
+  return (
+    getFlagValue(args, "--contract-version") ??
+    getFlagValue(args, "--contract") ??
+    getFlagValue(args, "--version")
+  );
+}
+
 function hasFlag(args: string[], flagName: string): boolean {
   return args.includes(flagName);
 }
 
 function getPositionalArgs(args: string[]): string[] {
   const positionalArgs: string[] = [];
-  const valueFlags = new Set(["--context-pack", "--context"]);
+  const valueFlags = new Set([
+    "--context-pack",
+    "--context",
+    "--contract-version",
+    "--contract",
+    "--version"
+  ]);
   const booleanFlags = new Set(["--expect-valid", "--expect-invalid"]);
 
   for (let index = 0; index < args.length; index += 1) {

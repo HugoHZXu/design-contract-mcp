@@ -4,7 +4,7 @@ A contract-first design-to-code architecture demo that consumes a vendored `@hug
 
 This repository is the contract consumer side of a two-repository demo:
 
-- `hugo-ui` publishes a versioned `@hugo-ui/mui` AI contract artifact through GitHub Releases.
+- [`hugo-ui`](https://github.com/HugoHZXu/hugo-ui) publishes a versioned `@hugo-ui/mui` AI contract artifact through GitHub Releases.
 - `figma-contract-mcp-demo` vendors that artifact snapshot and exposes it through MCP tools, a context pack, a validator, and a focused demo UI.
 
 ## What This Is
@@ -29,6 +29,9 @@ This project shows AI application/tooling patterns:
 - It does not call business APIs.
 - It does not call an LLM inside the MCP server.
 - It does not require `@hugo-ui/mui` as a runtime npm dependency for the preview UI.
+- It is not a public internet-facing MCP SaaS product.
+- It does not implement multi-tenant auth, billing, quota, audit retention, or enterprise policy integrations.
+- It expects remote deployments to run inside a controlled internal network, an allowlisted cloud service, or an enterprise gateway.
 
 ## Architecture
 
@@ -83,7 +86,9 @@ The demo UI renders:
 - middle: resolved mapping and component contract,
 - right: generated code and validation report.
 
-The preview shim at `demo-app/src/hugo-ui-preview.tsx` is only for local visualization. Validation uses the real `@hugo-ui/mui` AI contract snapshot from `vendor/hugo-ui/mui-ai-contract`.
+The preview shim at `demo-app/src/hugo-ui-preview.tsx` is only for local visualization. Validation uses the real `@hugo-ui/mui` AI contract snapshot from the committed vendor fallback or a locally cached GitHub Release artifact.
+
+For a high-level comparison between this MVP and a real internal product, see `docs/mvp-to-product.md`.
 
 ## Install
 
@@ -105,17 +110,37 @@ npm run dev
 
 Vite will print a local URL, usually `http://localhost:5173`.
 
-## Sync A New hugo-ui Contract Release
+## Manage hugo-ui Contract Versions
 
-The formal open-source flow is to sync from a GitHub Release asset:
+The committed vendor snapshot under `vendor/hugo-ui/mui-ai-contract/` is a reproducible fallback. Runtime tools can also read release artifacts unpacked into `.cache/hugo-ui/mui-ai-contract/<version>/`.
+
+Check the local contract store:
 
 ```bash
-npm run contract:sync:hugo-ui -- \
-  --repo <owner>/hugo-ui \
-  --tag mui-ai-contract-v<version>
+npm run contract:status:hugo-ui
 ```
 
-The script downloads `hugo-ui-mui-ai-contract-v<version>.tgz`, downloads and verifies the matching `.tgz.sha256`, extracts the snapshot into `vendor/hugo-ui/mui-ai-contract/`, verifies required files, and checks `provenance.json`.
+List published `mui-ai-contract-v*` releases from `HugoHZXu/hugo-ui`:
+
+```bash
+npm run contract:list:hugo-ui
+```
+
+Sync a contract artifact into the local cache. `installed` reads the local `@hugo-ui/mui` package version and chooses the newest contract release whose version is less than or equal to that package version:
+
+```bash
+npm run contract:sync:hugo-ui -- --version installed
+```
+
+Other supported selectors:
+
+```bash
+npm run contract:sync:hugo-ui -- --version latest
+npm run contract:sync:hugo-ui -- --version 1.0.2
+npm run contract:sync:hugo-ui -- --tag mui-ai-contract-v1.0.2
+```
+
+The script downloads `hugo-ui-mui-ai-contract-v<version>.tgz`, downloads and verifies the matching `.tgz.sha256`, extracts the snapshot into `.cache/hugo-ui/mui-ai-contract/<version>/`, verifies required files, and checks `provenance.json`.
 
 The sync flow requires the release tag, artifact filename, and `provenance.contractVersion` to agree. For example, `mui-ai-contract-v<version>` must contain `hugo-ui-mui-ai-contract-v<version>.tgz`, and the extracted provenance must report `contractVersion: "<version>"`.
 
@@ -128,27 +153,94 @@ npm run contract:sync:hugo-ui -- \
 
 This local mode is a convenience only. Public docs and reproducible setup should use GitHub Releases.
 
-## Run The MCP Server
+Use `HUGO_UI_CONTRACT_VERSION` to select the default runtime contract source. Supported values are `vendor`, `latest`, `installed`, or a semver target such as `1.0.2`. Runtime generation does not contact GitHub; it resolves against the committed vendor snapshot and local cache only.
+
+## Run The MCP Server Over stdio
 
 ```bash
 npm run mcp:server
 ```
 
-Use this command for manual local debugging. When configuring a real MCP client, start the server process directly instead of going through `npm run`:
+Use this command for manual local debugging. When configuring a real local MCP client, start the server process directly instead of going through `npm run`:
 
 ```bash
 ./node_modules/.bin/tsx mcp-server/src/server.ts
 ```
 
-The server is an MCP stdio server. It exposes local JSON-backed tools only:
+The stdio server exposes local JSON-backed tools only:
 
 - `get_design_context(frameId)`
 - `get_code_connect_map(nodeId)`
-- `get_component_contract(componentName)`
-- `build_generation_context(frameId)`
-- `validate_generated_code(code, expectedComponentUsage)`
+- `get_component_contract(componentName, contractVersion?)`
+- `build_generation_context(frameId, contractVersion?)`
+- `validate_generated_code(code, expectedComponentUsage, contractVersion?)`
+- `get_contract_status()`
 
-The MCP server reads local fixture and vendor snapshot files. It does not call an LLM.
+The MCP server reads local fixture files, mapping metadata, cached or vendored contract files, and pattern contracts. It does not call an LLM.
+
+## Run The MCP Server Over Streamable HTTP
+
+```bash
+npm run mcp:http
+```
+
+The HTTP entrypoint listens on `127.0.0.1:3000` by default and exposes:
+
+- `POST /mcp` for MCP Streamable HTTP,
+- `GET /healthz` for a small health check.
+
+Configuration:
+
+```bash
+MCP_HTTP_HOST=127.0.0.1
+MCP_HTTP_PORT=3000
+MCP_ALLOWED_HOSTS=localhost,127.0.0.1
+MCP_ALLOWED_ORIGINS=http://localhost:3000
+HUGO_UI_CONTRACT_VERSION=latest
+HUGO_UI_CONTRACT_SYNC=startup
+MCP_AUTH_MODE=external
+MCP_AUTH_PROVIDER=cloud-platform
+MCP_AUTH_CONTEXT_HEADERS=x-authenticated-user-email,x-authenticated-user-id
+MCP_LOG_LEVEL=info
+```
+
+For most internal deployments, terminate TLS and enforce authentication at the platform, load balancer, or reverse proxy and forward to the Node process over HTTP. `MCP_AUTH_MODE=external` records that authentication is handled upstream; the MCP process does not validate bearer tokens or store auth secrets. `MCP_ALLOWED_HOSTS` limits accepted host headers, and `MCP_ALLOWED_ORIGINS` limits browser-origin requests when an `Origin` header is present. Requests without an `Origin` header are allowed because many MCP clients are not browsers. `HUGO_UI_CONTRACT_SYNC=startup` performs one GitHub Release sync when the process starts; normal MCP requests still read only from the local cache.
+
+## Run The MCP Server With Node HTTPS
+
+The repository also includes a Node HTTPS entrypoint for environments where this process must terminate TLS itself:
+
+```bash
+npm run mcp:https
+```
+
+Required certificate configuration:
+
+```bash
+MCP_HTTPS_KEY_FILE=/path/to/server.key
+MCP_HTTPS_CERT_FILE=/path/to/server.crt
+MCP_HTTPS_HOST=127.0.0.1
+MCP_HTTPS_PORT=3443
+```
+
+Certificate material can come from raw environment variables, Base64 environment variables, or file paths supplied by the deployment platform:
+
+```bash
+MCP_HTTPS_KEY="-----BEGIN PRIVATE KEY-----..."
+MCP_HTTPS_CERT="-----BEGIN CERTIFICATE-----..."
+MCP_HTTPS_KEY_BASE64=...
+MCP_HTTPS_CERT_BASE64=...
+MCP_HTTPS_KEY_FILE=/path/to/server.key
+MCP_HTTPS_CERT_FILE=/path/to/server.crt
+MCP_HTTPS_CA="-----BEGIN CERTIFICATE-----..."
+MCP_HTTPS_CA_FILE=/path/to/ca.crt
+MCP_HTTPS_CA_BASE64=...
+MCP_HTTPS_PASSPHRASE=...
+```
+
+The HTTPS entrypoint uses the same MCP request handler, cache resolver, health check, logging, host validation, and auth modes as the HTTP entrypoint. `MCP_AUTH_MODE=external` is the intended cloud deployment mode when gateway, SSO, IAM, or an allowlist service already rejects unauthenticated requests before they reach this process. `MCP_AUTH_MODE=placeholder` remains available only as a demo marker for a future in-process auth branch; it intentionally allows requests.
+
+MCP logs are written to stderr as JSON lines. Supported `MCP_LOG_LEVEL` values are `debug`, `info`, `warn`, `error`, and `silent`. Logs include HTTP startup configuration, request ID, method, URL, status code, duration, host, remote address, MCP tool name, tool duration, contract selector resolution, validation pass/fail summary, and errors. Request bodies, generated code, and full MCP payloads are not logged.
 
 ## Run The Same Tools Locally
 
@@ -170,6 +262,14 @@ Build generation context:
 
 ```bash
 npm run mcp:context
+```
+
+Build generation context against a selected contract version:
+
+```bash
+./node_modules/.bin/tsx mcp-server/src/local-cli.ts \
+  build-generation-context frame-edit-profile \
+  --contract-version latest
 ```
 
 Read design context:
@@ -243,20 +343,22 @@ fixtures/figma/raw/                     Local Figma API-shaped raw snapshot mock
 fixtures/figma/                         Normalized local Figma-like JSON.
 code-connect/manifest.json              Local Code Connect-style mock manifest.
 code-connect/mock/                      Documentation-only Code Connect template shape mocks.
-vendor/hugo-ui/mui-ai-contract/         Vendored @hugo-ui/mui AI contract snapshot.
+.cache/hugo-ui/mui-ai-contract/         Ignored runtime cache for synced contract artifacts.
+vendor/hugo-ui/mui-ai-contract/         Vendored @hugo-ui/mui AI contract fallback snapshot.
 contracts/patterns/                     Local page-level pattern contracts only.
-mcp-server/                             MCP stdio server, adapter, local CLI, validator.
+mcp-server/                             MCP stdio, HTTP, HTTPS entries, adapter, local CLI, validator.
 demo-app/                               Vite + React demo UI with preview shim.
 generated/                              Static samples, captured MCP-run candidate, context pack, and audit report.
 docs/                                   Architecture notes for future work.
 scripts/normalize-figma-fixture.ts      Raw mock to normalized fixture conversion.
 scripts/audit-generated-output.ts       Candidate validation and static-sample similarity audit.
-scripts/sync-hugo-ui-contract.mjs       Release artifact sync and verification script.
+scripts/hugo-ui-contract.ts             Contract release listing, sync, status, and verification CLI.
+scripts/sync-hugo-ui-contract.mjs       Legacy release artifact sync script kept for reference.
 ```
 
 ## Boundary Reminder
 
-All design input comes from fixtures. The raw snapshot is still a local mock, not a live Figma API response. Component API knowledge and token policy for the main chain come only from the vendored `@hugo-ui/mui` contract snapshot under `vendor/hugo-ui/mui-ai-contract/`. The `contracts/` tree is reserved for local pattern contracts, not component or token contracts. Code Connect is represented only as local mapping metadata and documentation-only template shape mocks. Generated React must go through the validator before it is treated as usable. No real Figma API, official Code Connect publish flow, or LLM call is part of this demo.
+All design input comes from fixtures. The raw snapshot is still a local mock, not a live Figma API response. Component API knowledge and token policy for the main chain come from a verified `@hugo-ui/mui` AI contract artifact, either the committed vendor fallback or a synced local cache entry. The `contracts/` tree is reserved for local pattern contracts, not component or token contracts. Code Connect is represented only as local mapping metadata and documentation-only template shape mocks. Generated React must go through the validator before it is treated as usable. No real Figma API, official Code Connect publish flow, or LLM call is part of this demo.
 
 ## License
 

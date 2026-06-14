@@ -1,5 +1,11 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import {
+  contractRelativePath,
+  getContractStatus,
+  resolveLocalContractSource,
+  resolveMappedContractPath
+} from "./contract-store";
 import { fromRepoRoot } from "./paths";
 import type {
   CodeConnectManifest,
@@ -16,12 +22,10 @@ import {
   adaptHugoUIMuiContract,
   type HugoUIComponentContract
 } from "./contract-adapters/hugo-ui-mui";
+import { createLogger } from "./logger";
 import { validateGeneratedCode } from "./validator";
 
-const hugoUiContractRoot = "vendor/hugo-ui/mui-ai-contract";
-const hugoUiManifestPath = `${hugoUiContractRoot}/manifest.json`;
-const hugoUiTokenMapPath = `${hugoUiContractRoot}/tokens/token-map.contract.json`;
-const hugoUiProvenancePath = `${hugoUiContractRoot}/provenance.json`;
+const logger = createLogger("mcp-tools");
 
 export async function getDesignContext(frameId: string) {
   const fixtures = await readDesignFixtures();
@@ -52,8 +56,12 @@ export async function getCodeConnectMap(nodeId: string) {
   };
 }
 
-export async function getComponentContract(componentName: string) {
-  const manifest = await readHugoUiManifest();
+export async function getComponentContract(
+  componentName: string,
+  contractVersion?: string
+) {
+  const source = await resolveLocalContractSource(contractVersion);
+  const manifest = await readHugoUiManifest(source.root);
   const manifestEntry = manifest.components.find(
     (component) => component.componentName === componentName
   );
@@ -63,44 +71,68 @@ export async function getComponentContract(componentName: string) {
   }
 
   return readAdaptedHugoUiContract(
-    `${hugoUiContractRoot}/${manifestEntry.contract}`
+    contractRelativePath(source, manifestEntry.contract),
+    displayPath(contractRelativePath(source, manifestEntry.contract))
   );
 }
 
-export async function buildGenerationContext(frameId: string) {
+export async function buildGenerationContext(
+  frameId: string,
+  contractVersion?: string
+) {
+  const contractSource = await resolveLocalContractSource(contractVersion);
   const designContext = await getDesignContext(frameId);
   const manifest = await readCodeConnectManifest();
   const tokenMap = await readJson<TokenMapContract>(
-    hugoUiTokenMapPath
+    contractRelativePath(contractSource, "tokens/token-map.contract.json")
   );
   const contractArtifact = {
-    manifest: await readHugoUiManifest(),
-    provenance: await readJson<Record<string, unknown>>(hugoUiProvenancePath)
+    source: {
+      selector: contractSource.selector,
+      resolvedVersion: contractSource.version,
+      kind: contractSource.kind,
+      root: displayPath(contractSource.root)
+    },
+    manifest: await readHugoUiManifest(contractSource.root),
+    provenance: await readJson<Record<string, unknown>>(
+      contractRelativePath(contractSource, "provenance.json")
+    )
   };
   const patterns = await readPatternContracts();
   const pattern = patterns.find((candidate) => candidate.frameIds.includes(frameId));
   const nodes = flattenDesignNodes(designContext.frame);
   const nodeById = new Map(nodes.map((node) => [node.id, node]));
   const mappings = manifest.mappings.filter((mapping) => nodeById.has(mapping.nodeId));
-  const componentContracts = await readAllComponentContracts();
+  const componentContracts = await readAllComponentContracts(contractVersion);
   const resolvedNodes = await Promise.all(
     mappings.map(async (mapping) => {
-      const contract = await readAdaptedHugoUiContract(mapping.contractPath);
+      const resolvedContractPath = resolveMappedContractPath(
+        contractSource,
+        mapping.contractPath
+      );
+      const displayContractPath = displayPath(resolvedContractPath);
+      const contract = await readAdaptedHugoUiContract(
+        resolvedContractPath,
+        displayContractPath
+      );
       return {
         node: nodeById.get(mapping.nodeId),
         mapping,
+        resolvedContractPath: displayContractPath,
         contract: summarizeContract(contract)
       };
     })
   );
   const expectedComponentUsage: ExpectedComponentUsage[] = resolvedNodes.map(
-    ({ node, mapping }) => ({
+    ({ node, mapping, resolvedContractPath }) => ({
       nodeId: mapping.nodeId,
       nodeName: node?.name ?? mapping.figmaNodeName,
       componentName: mapping.componentName,
       importName: mapping.importName,
       packageName: manifest.componentPackage,
-      contractPath: mapping.contractPath
+      contractPath: resolvedContractPath,
+      contractVersion: contractSource.version,
+      contractSource: contractSource.kind
     })
   );
 
@@ -114,6 +146,12 @@ export async function buildGenerationContext(frameId: string) {
     },
     pattern: pattern ?? null,
     tokens: tokenMap,
+    contractSource: {
+      selector: contractSource.selector,
+      resolvedVersion: contractSource.version,
+      kind: contractSource.kind,
+      root: displayPath(contractSource.root)
+    },
     contractArtifact,
     componentContracts,
     expectedComponentUsage,
@@ -129,18 +167,34 @@ export async function buildGenerationContext(frameId: string) {
 
 export async function validateGeneratedCodeTool(
   code: string,
-  expectedComponentUsage?: ExpectedComponentUsage[]
+  expectedComponentUsage?: ExpectedComponentUsage[],
+  contractVersion?: string
 ) {
-  const contracts = await readAllComponentContracts();
-  return validateGeneratedCode(code, contracts, { expectedComponentUsage });
+  const contracts = await readAllComponentContracts(
+    contractVersion ?? inferContractVersion(expectedComponentUsage)
+  );
+  const report = validateGeneratedCode(code, contracts, { expectedComponentUsage });
+  logger.info("Validation summary.", {
+    valid: report.valid,
+    violationCount: report.violations.length,
+    expectedUsageCount: expectedComponentUsage?.length ?? 0,
+    contractVersion:
+      contractVersion ?? inferContractVersion(expectedComponentUsage) ?? "default",
+    checks: Object.fromEntries(
+      report.checks.map((check) => [check.id, check.status])
+    )
+  });
+
+  return report;
 }
 
 export async function validateGeneratedFile(
   relativePath: string,
-  expectedComponentUsage?: ExpectedComponentUsage[]
+  expectedComponentUsage?: ExpectedComponentUsage[],
+  contractVersion?: string
 ) {
   const code = await fs.readFile(fromRepoRoot(relativePath), "utf8");
-  return validateGeneratedCodeTool(code, expectedComponentUsage);
+  return validateGeneratedCodeTool(code, expectedComponentUsage, contractVersion);
 }
 
 export async function readContextPack(relativePath: string): Promise<{
@@ -150,12 +204,22 @@ export async function readContextPack(relativePath: string): Promise<{
   return readJson(relativePath);
 }
 
-export async function readAllComponentContracts(): Promise<ComponentContract[]> {
-  const manifest = await readHugoUiManifest();
+export async function getHugoUiContractStatus() {
+  return getContractStatus();
+}
+
+export async function readAllComponentContracts(
+  contractVersion?: string
+): Promise<ComponentContract[]> {
+  const source = await resolveLocalContractSource(contractVersion);
+  const manifest = await readHugoUiManifest(source.root);
 
   return Promise.all(
     manifest.components.map((component) =>
-      readAdaptedHugoUiContract(`${hugoUiContractRoot}/${component.contract}`)
+      readAdaptedHugoUiContract(
+        contractRelativePath(source, component.contract),
+        displayPath(contractRelativePath(source, component.contract))
+      )
     )
   );
 }
@@ -203,21 +267,43 @@ type HugoUiManifest = {
   [key: string]: unknown;
 };
 
-async function readHugoUiManifest(): Promise<HugoUiManifest> {
-  return readJson<HugoUiManifest>(hugoUiManifestPath);
+async function readHugoUiManifest(root: string): Promise<HugoUiManifest> {
+  return readJson<HugoUiManifest>(path.join(root, "manifest.json"));
 }
 
 async function readAdaptedHugoUiContract(
-  relativePath: string
+  relativePath: string,
+  sourceContractPath = relativePath
 ): Promise<ComponentContract> {
   const sourceContract = await readJson<HugoUIComponentContract>(relativePath);
-  return adaptHugoUIMuiContract(sourceContract, relativePath);
+  return adaptHugoUIMuiContract(sourceContract, sourceContractPath);
 }
 
 async function readJson<T>(relativePath: string): Promise<T> {
-  const filePath = fromRepoRoot(relativePath);
+  const filePath = path.isAbsolute(relativePath)
+    ? relativePath
+    : fromRepoRoot(relativePath);
   const raw = await fs.readFile(filePath, "utf8");
   return JSON.parse(raw) as T;
+}
+
+function inferContractVersion(
+  expectedComponentUsage?: ExpectedComponentUsage[]
+): string | undefined {
+  const versions = new Set(
+    (expectedComponentUsage ?? [])
+      .map((usage) => usage.contractVersion)
+      .filter((version): version is string => Boolean(version))
+  );
+
+  return versions.size === 1 ? [...versions][0] : undefined;
+}
+
+function displayPath(filePath: string): string {
+  const relativePath = path.relative(fromRepoRoot("."), filePath);
+  return relativePath.startsWith("..") || path.isAbsolute(relativePath)
+    ? filePath
+    : relativePath;
 }
 
 function flattenDesignNodes(frame: DesignFrame): DesignNode[] {

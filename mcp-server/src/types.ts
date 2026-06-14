@@ -141,6 +141,8 @@ export type ExpectedComponentUsage = {
   importName: string;
   packageName: string;
   contractPath: string;
+  contractVersion?: string;
+  contractSource?: string;
 };
 
 export type ValidationOptions = {

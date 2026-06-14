@@ -904,7 +904,19 @@
     "generatedAt": "2026-06-18T16:25:52.214Z",
     "sourceCommit": "28b72aee375fb36e8b5b75e591b4a5c2725c8f78"
   },
+  "contractSource": {
+    "selector": "vendor",
+    "resolvedVersion": "1.0.2",
+    "kind": "vendor",
+    "root": "vendor/hugo-ui/mui-ai-contract"
+  },
   "contractArtifact": {
+    "source": {
+      "selector": "vendor",
+      "resolvedVersion": "1.0.2",
+      "kind": "vendor",
+      "root": "vendor/hugo-ui/mui-ai-contract"
+    },
     "manifest": {
       "schemaVersion": "package-contract-manifest/v1",
       "packageName": "@hugo-ui/mui",
@@ -4668,7 +4680,9 @@
       "componentName": "Modal",
       "importName": "Modal",
       "packageName": "@hugo-ui/mui",
-      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Modal.contract.json"
+      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Modal.contract.json",
+      "contractVersion": "1.0.2",
+      "contractSource": "vendor"
     },
     {
       "nodeId": "node-input-first-name",
@@ -4676,7 +4690,9 @@
       "componentName": "Input",
       "importName": "Input",
       "packageName": "@hugo-ui/mui",
-      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Input.contract.json"
+      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Input.contract.json",
+      "contractVersion": "1.0.2",
+      "contractSource": "vendor"
     },
     {
       "nodeId": "node-input-last-name",
@@ -4684,7 +4700,9 @@
       "componentName": "Input",
       "importName": "Input",
       "packageName": "@hugo-ui/mui",
-      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Input.contract.json"
+      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Input.contract.json",
+      "contractVersion": "1.0.2",
+      "contractSource": "vendor"
     },
     {
       "nodeId": "node-button-cancel",
@@ -4692,7 +4710,9 @@
       "componentName": "Button",
       "importName": "Button",
       "packageName": "@hugo-ui/mui",
-      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Button.contract.json"
+      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Button.contract.json",
+      "contractVersion": "1.0.2",
+      "contractSource": "vendor"
     },
     {
       "nodeId": "node-button-save",
@@ -4700,7 +4720,9 @@
       "componentName": "Button",
       "importName": "Button",
       "packageName": "@hugo-ui/mui",
-      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Button.contract.json"
+      "contractPath": "vendor/hugo-ui/mui-ai-contract/components/Button.contract.json",
+      "contractVersion": "1.0.2",
+      "contractSource": "vendor"
     }
   ],
   "resolvedNodes": [
@@ -5118,6 +5140,7 @@
           "componentProperties.Type.value": "type"
         }
       },
+      "resolvedContractPath": "vendor/hugo-ui/mui-ai-contract/components/Modal.contract.json",
       "contract": {
         "componentName": "Modal",
         "packageName": "@hugo-ui/mui",
@@ -5295,6 +5318,7 @@
           }
         ]
       },
+      "resolvedContractPath": "vendor/hugo-ui/mui-ai-contract/components/Input.contract.json",
       "contract": {
         "componentName": "Input",
         "packageName": "@hugo-ui/mui",
@@ -5472,6 +5496,7 @@
           }
         ]
       },
+      "resolvedContractPath": "vendor/hugo-ui/mui-ai-contract/components/Input.contract.json",
       "contract": {
         "componentName": "Input",
         "packageName": "@hugo-ui/mui",
@@ -5627,6 +5652,7 @@
           "componentProperties.Size.value": "size"
         }
       },
+      "resolvedContractPath": "vendor/hugo-ui/mui-ai-contract/components/Button.contract.json",
       "contract": {
         "componentName": "Button",
         "packageName": "@hugo-ui/mui",
@@ -5778,6 +5804,7 @@
           "componentProperties.Size.value": "size"
         }
       },
+      "resolvedContractPath": "vendor/hugo-ui/mui-ai-contract/components/Button.contract.json",
       "contract": {
         "componentName": "Button",
         "packageName": "@hugo-ui/mui",

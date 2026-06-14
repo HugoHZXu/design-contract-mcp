@@ -17,18 +17,18 @@ It is not a complete Figma-to-code product, not a production code generator, and
 - Do not put LLM calls inside the MCP server.
 - Do not bypass the validator for generated React usage.
 - Do not use local `../hugo-ui` paths, symlinks, or git submodules as the main integration path.
-- Do not add fake `hugo-ui` contracts for components that are not present in the vendored artifact.
+- Do not add fake `hugo-ui` contracts for components that are not present in the verified contract artifact.
 
 ## Architecture Rules
 
 - All design input must come from JSON fixtures under `fixtures/figma/`.
-- Main-chain component knowledge must come from `vendor/hugo-ui/mui-ai-contract/`.
+- Main-chain component knowledge must come from a verified `hugo-ui` AI contract artifact: either the committed `vendor/hugo-ui/mui-ai-contract/` fallback or a synced `.cache/hugo-ui/mui-ai-contract/<version>/` entry.
 - The committed vendor snapshot must be verifiable with `npm run contract:verify:hugo-ui`.
 - Design-to-component resolution must go through `code-connect/manifest.json`.
-- Token usage for the main chain must be based on `vendor/hugo-ui/mui-ai-contract/tokens/`.
+- Token usage for the main chain must be based on the resolved `hugo-ui` contract artifact's `tokens/` directory.
 - Page-level generation assumptions must be represented as pattern contracts under `contracts/patterns/`.
-- The MCP server must stay thin: it reads local JSON, resolves context, and validates generated code.
-- The MCP server must adapt `hugo-ui` contracts through `mcp-server/src/contract-adapters/hugo-ui-mui.ts` instead of changing the vendored contract shape in place.
+- The MCP server must stay thin: it reads local JSON, resolves local contract context, reports local contract status, and validates generated code.
+- The MCP server must adapt `hugo-ui` contracts through `mcp-server/src/contract-adapters/hugo-ui-mui.ts` instead of changing the contract artifact shape in place.
 - Generated examples belong in `generated/`; they are samples, not authoritative source code.
 - `generated/edit-profile-modal.context-pack.json` is the generated context pack for the demo chain.
 - The demo UI should show the chain from design node to mapping to contract to generated code to validation report.
@@ -51,15 +51,17 @@ The MCP server exposes local context tools:
 
 - `get_design_context(frameId)`
 - `get_code_connect_map(nodeId)`
-- `get_component_contract(componentName)`
-- `build_generation_context(frameId)`
-- `validate_generated_code(code, expectedComponentUsage)`
+- `get_component_contract(componentName, contractVersion?)`
+- `build_generation_context(frameId, contractVersion?)`
+- `validate_generated_code(code, expectedComponentUsage, contractVersion?)`
+- `get_contract_status()`
 
 The server must not:
 
 - call an LLM,
 - mutate source files,
 - fetch remote design data,
+- fetch remote contract releases during normal generation or validation tool calls,
 - infer hidden component APIs not present in contracts,
 - or silently accept invalid generated code.
 
@@ -77,19 +79,21 @@ The validator should stay intentionally simple for this demo. It checks:
 
 If generated code fails validation, the demo should show a fail report rather than hiding the issue.
 
-## Vendor Snapshot Policy
+## Contract Artifact Policy
 
-The official refresh path is a GitHub Release artifact from the `hugo-ui` repository:
+The official sync path is a GitHub Release artifact from the `hugo-ui` repository:
 
 ```bash
-npm run contract:sync:hugo-ui -- \
-  --repo <owner>/hugo-ui \
-  --tag mui-ai-contract-v<version>
+npm run contract:sync:hugo-ui -- --version installed
+npm run contract:sync:hugo-ui -- --version latest
+npm run contract:sync:hugo-ui -- --version <target-package-version>
 ```
+
+The sync script selects the newest `mui-ai-contract-v*` release whose version is less than or equal to the target package version, then unpacks it into `.cache/hugo-ui/mui-ai-contract/<version>/`.
 
 The sync script may support local `--from-file` for development convenience, but README and public setup instructions must present GitHub Releases as the formal source.
 
-The vendor snapshot must include `provenance.json`, and provenance must identify:
+The vendor snapshot and every cached artifact must include `provenance.json`, and provenance must identify:
 
 - `sourcePackage`: `@hugo-ui/mui`
 - `sourcePackagePath`: `packages/mui`
@@ -118,7 +122,7 @@ Before changing behavior, verify:
 1. The fixture still resolves through the Code Connect-style manifest.
 2. Component names in generated samples match contract names.
 3. `npm run contract:verify:hugo-ui` passes.
-4. New generated props are present in the vendored contract before generated code uses them.
+4. New generated props are present in the resolved contract artifact before generated code uses them.
 5. `npm run context:pack` regenerates the context pack successfully.
 6. Raw color literals are rejected unless the validator rule is intentionally changed.
 7. README limitations remain accurate after the change.

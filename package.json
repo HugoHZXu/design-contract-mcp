@@ -11,10 +11,14 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "figma:normalize": "tsx scripts/normalize-figma-fixture.ts",
     "mcp:server": "tsx mcp-server/src/server.ts",
+    "mcp:http": "tsx mcp-server/src/server-http.ts",
+    "mcp:https": "tsx mcp-server/src/server-https.ts",
     "mcp:context": "tsx mcp-server/src/local-cli.ts build-generation-context frame-edit-profile",
     "mcp:design": "tsx mcp-server/src/local-cli.ts get-design-context frame-edit-profile",
-    "contract:sync:hugo-ui": "node scripts/sync-hugo-ui-contract.mjs",
-    "contract:verify:hugo-ui": "node scripts/sync-hugo-ui-contract.mjs --verify-only",
+    "contract:list:hugo-ui": "tsx scripts/hugo-ui-contract.ts list",
+    "contract:status:hugo-ui": "tsx scripts/hugo-ui-contract.ts status",
+    "contract:sync:hugo-ui": "tsx scripts/hugo-ui-contract.ts sync",
+    "contract:verify:hugo-ui": "tsx scripts/hugo-ui-contract.ts verify-vendor",
     "precontext:pack": "npm run figma:normalize",
     "context:pack": "tsx mcp-server/src/generate-context-pack.ts frame-edit-profile generated/edit-profile-modal.context-pack.json",
     "preaudit:generated": "npm run context:pack",
@@ -25,7 +29,7 @@
     "validate:bad": "tsx mcp-server/src/local-cli.ts validate-file generated/edit-profile-modal.invalid.generated.tsx --context-pack generated/edit-profile-modal.context-pack.json --expect-invalid"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.13.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "zod": "^3.25.0"

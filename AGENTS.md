@@ -13,7 +13,6 @@ It is not a complete Figma-to-code product, not a production code generator, and
 - Do not publish or integrate with official Figma Code Connect.
 - Treat Code Connect-style files in this repo as local mock mapping metadata only.
 - Do not connect to real business APIs.
-- Do not turn the demo UI into a large marketing landing page.
 - Do not put LLM calls inside the MCP server.
 - Do not bypass the validator for generated React usage.
 - Do not use local `../hugo-ui` paths, symlinks, or git submodules as the main integration path.
@@ -31,7 +30,7 @@ It is not a complete Figma-to-code product, not a production code generator, and
 - The MCP server must adapt `hugo-ui` contracts through `mcp-server/src/contract-adapters/hugo-ui-mui.ts` instead of changing the contract artifact shape in place.
 - Generated examples belong in `generated/`; they are samples, not authoritative source code.
 - `generated/edit-profile-modal.context-pack.json` is the generated context pack for the demo chain.
-- The demo UI should show the chain from design node to mapping to contract to generated code to validation report.
+- The MCP tools and local commands should expose the chain from design node to mapping to contract to generated code to validation report.
 
 ## Code Connect Policy
 
@@ -69,7 +68,7 @@ The server must not:
 
 Generated React code must be checked with the validator before it is presented as usable.
 
-The validator should stay intentionally simple for this demo. It checks:
+The validator is scoped to these checks for this demo:
 
 - imports from the expected component package,
 - allowed component props,
@@ -77,7 +76,7 @@ The validator should stay intentionally simple for this demo. It checks:
 - mapped component coverage against expected usage from the context pack,
 - and raw color literals in generated code.
 
-If generated code fails validation, the demo should show a fail report rather than hiding the issue.
+If generated code fails validation, MCP tool responses and local commands should return a fail report rather than hiding the issue.
 
 ## Contract Artifact Policy
 
@@ -105,16 +104,6 @@ Documentation and AI-agent infrastructure content must be written in English.
 
 README content must explain the architecture and limitations clearly. It must not overstate the project's capabilities, production readiness, or integration status with Figma or Code Connect.
 
-## Demo UI Policy
-
-The demo UI should be functional and focused. The first screen should be the architecture demo itself:
-
-- left column: design tree,
-- middle column: resolved mapping and component contract,
-- right column: generated code and validation report.
-
-Avoid marketing-style hero sections, broad product claims, or visual treatments that distract from the chain being demonstrated.
-
 ## Future Agent Checklist
 
 Before changing behavior, verify:
@@ -124,5 +113,5 @@ Before changing behavior, verify:
 3. `npm run contract:verify:hugo-ui` passes.
 4. New generated props are present in the resolved contract artifact before generated code uses them.
 5. `npm run context:pack` regenerates the context pack successfully.
-6. Raw color literals are rejected unless the validator rule is intentionally changed.
-7. README limitations remain accurate after the change.
+6. Raw color literals are rejected unless the validator rule is changed.
+7. README architecture and real-flow guidance remain accurate after the change.

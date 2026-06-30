@@ -1,134 +1,158 @@
-# MVP To Product Direction
+# From Mock Data To Production
 
-This document compares the current MVP with the shape a real internal product would likely take. It intentionally stays high level because the exact implementation depends on the team's Figma setup, deployment platform, security policy, and artifact infrastructure.
+[English](mvp-to-product.md) | [简体中文](mvp-to-product.zh-CN.md)
 
-The target product shape is still internal. This repository is not intended to become a public internet-facing MCP SaaS service.
+This document describes how to evolve this MCP from its current state (running against local mock fixtures that mirror real Figma MCP and Code Connect data shapes) into a production Figma-to-Code workflow connected to live Figma. The core pieces stay the same throughout: design context, component mapping, versioned AI contracts, generation context, code generation guidance, and validation feedback.
 
-## 1. Figma MCP
+---
 
-### Current MVP
+## 1. Design Ingestion
 
-The project does not connect to the live Figma MCP server or Figma REST API. Design input comes from committed JSON fixtures under `fixtures/figma/`, with one Figma MCP-shaped tool-result fixture normalized into the smaller structure consumed by the demo tools.
+### Current State
 
-This keeps the demo deterministic and avoids mixing contract validation with live design-data concerns.
+The repository ships with a captured Figma MCP fixture under [fixtures/figma/mcp/](file:///Users/xuhaoze/code-demo/figma-contract-mcp-demo/fixtures/figma/mcp/). Running `npm run figma:normalize` uses [normalize-figma-fixture.ts](file:///Users/xuhaoze/code-demo/figma-contract-mcp-demo/scripts/normalize-figma-fixture.ts) to convert that capture into [edit-profile-modal.fixture.json](file:///Users/xuhaoze/code-demo/figma-contract-mcp-demo/fixtures/figma/edit-profile-modal.fixture.json), which is the normalized input shape consumed by the MCP tools.
 
-### Real Product Direction
+### Product Path
 
-A real product would normally replace the local fixture source with an internal Figma MCP service or a controlled design-ingestion service. That service would handle Figma auth, file access, node selection, caching, rate limits, and any organization-specific permission model.
+In a real workflow, you'd provide that same normalized shape from an internal design source rather than static fixtures. Potential sources include:
 
-The contract MCP server should still stay thin. It should consume already-authorized design context from the Figma side instead of directly owning Figma tokens, workspace permissions, or broad document crawling.
+- An internal Figma MCP service
+- A controlled design-ingestion service
+- Cached snapshots for selected frames or nodes
+- Stable frame/node identifiers
+- Freshness metadata for design snapshots (to tell users when a design was last updated)
+- Clear, user-facing error messages when files, frames, or nodes are inaccessible
 
-Likely additions:
+This way, MCP context tools can consume authorized design context without needing direct Figma workspace access themselves.
 
-- a design context provider interface instead of hardcoded fixture reads,
-- stable frame/node identifiers from the real Figma source,
-- cache and freshness metadata for design snapshots,
-- clear errors when a file, frame, or node is not accessible,
-- explicit boundaries for supported design patterns instead of claiming arbitrary Figma-to-code support.
+---
 
-## 2. Code Connect
+## 2. Component Mapping
 
-### Current MVP
+### Current State
 
-The repository uses `code-connect/manifest.json` as a local contract-enriched projection of a Figma MCP `get_code_connect_map` result. The files under `code-connect/mock/` are documentation-only mocks. Nothing is published to Figma, and the project does not claim official Code Connect compatibility.
+[code-connect/manifest.json](file:///Users/xuhaoze/code-demo/figma-contract-mcp-demo/code-connect/manifest.json) maps selected design node IDs to `@hugo-ui/mui` component names and contract file paths. The [code-connect/mock/](file:///Users/xuhaoze/code-demo/figma-contract-mcp-demo/code-connect/mock/) directory provides local Code Connect template examples for `Modal`, `Input`, and `Button`.
 
-### Real Product Direction
+### Product Path
 
-A real product would need an owned mapping source that connects design components to implementation components in a repeatable way. Depending on the team's process, that source could be official Code Connect, an internal registry, or a generated mapping artifact owned by the design-system team.
+In production, the mapping source should be owned and maintained by the design-system or design-platform team. Depending on your team's setup, this could be official Code Connect, an internal component registry, or an auto-generated mapping artifact.
 
-The important product boundary is that component resolution should remain explicit. The MCP server should not infer hidden component APIs or silently guess mappings that are not backed by the registry.
+Useful capabilities to add:
 
-Likely additions:
+- **Versioned mapping artifacts** published alongside the design system, so mappings stay in sync with component versions
+- Validation that mapping entries only reference components that actually exist in the AI contract manifest
+- Automatic detection of stale or missing mappings
+- Support for multiple packages or component namespaces
+- Deprecation flags and alias metadata to support component migrations
 
-- a versioned mapping artifact published with the design system,
-- mapping validation against the AI contract manifest,
-- tooling that detects stale or missing mappings,
-- support for multiple packages or component namespaces if the design system grows,
-- a policy for deprecated components and aliases.
+---
 
-## 3. HTTP/HTTPS Deployment And Cloud Services
+## 3. AI Contract Management
 
-### Current MVP
+### Current State
 
-The project supports three MCP entrypoints:
+The committed fallback lives at [vendor/hugo-ui/mui-ai-contract/](file:///Users/xuhaoze/code-demo/figma-contract-mcp-demo/vendor/hugo-ui/mui-ai-contract/). Runtime tools can also read contract artifacts that have been synced into `.cache/hugo-ui/mui-ai-contract/<version>/`.
 
-- `npm run mcp:server` for local stdio,
-- `npm run mcp:http` for Streamable HTTP,
-- `npm run mcp:https` for Node-managed TLS when needed.
+The sync command (`npm run contract:sync:hugo-ui`) fetches GitHub Release artifacts, verifies checksums, unpacks them, and checks `provenance.json` for validity. Runtime MCP tools resolve contracts from local cache first, falling back to the vendor snapshot.
 
-HTTP and HTTPS share the same MCP server factory, request handler, contract resolver, health check, host filtering, browser-origin filtering, and structured stderr logs. `MCP_AUTH_MODE=external` records that authentication is expected to be enforced by an upstream platform.
+Supported version selectors:
+- `vendor` — use the committed fallback snapshot
+- `latest` — use the newest available version
+- `installed` — match against the local `@hugo-ui/mui` package version
+- Explicit semver (e.g. `1.0.2`)
 
-The server does not implement OAuth, SSO, RBAC, audit retention, log shipping, billing, quota, or multi-tenant isolation.
+### Product Path
 
-### Real Product Direction
+In an internal product, the design-system release pipeline should publish **immutable** AI contract artifacts to a durable artifact store — S3, GCS, OSS, an internal package registry, or whichever approved artifact repository your organization uses.
 
-For internal use, the usual production shape is to place this server behind an enterprise gateway, internal platform, allowlisted cloud service, or private network boundary. TLS termination, authentication, authorization, request logging, secret management, and audit retention should be owned by that platform unless a concrete requirement says otherwise.
-
-The MCP server should focus on predictable runtime behavior:
-
-- read-only tool calls during normal generation,
-- deterministic contract resolution from local cache,
-- health/readiness endpoints,
-- structured logs that can be collected by the platform,
-- explicit startup configuration and clear warnings for unsafe combinations.
-
-Likely additions when a deployment target is known:
-
-- a Dockerfile and deployment example for that environment,
-- a startup or init step for contract synchronization,
-- readiness checks for required contract versions,
-- platform-specific log and metrics integration,
-- explicit allowlists for hosts and browser origins,
-- smoke tests that run against the deployed endpoint.
-
-## 4. AI Contract Management
-
-### Current MVP
-
-The committed fallback lives under `vendor/hugo-ui/mui-ai-contract/`. Runtime tools can also read contract artifacts unpacked into `.cache/hugo-ui/mui-ai-contract/<version>/`.
-
-The sync command can fetch GitHub Release artifacts, verify checksums, unpack them, and verify provenance. Runtime MCP tool calls do not contact GitHub.
-
-The current selector model is intentionally simple:
-
-- `vendor`,
-- `latest`,
-- `installed`,
-- or a semver target such as `1.0.2`.
-
-### Real Product Direction
-
-In a real internal product, the design-system release pipeline should publish immutable AI contract artifacts to a durable artifact store such as S3, GCS, OSS, an internal package registry, or another approved artifact repository. GitHub Releases are sufficient for this demo, but object storage or an artifact registry is usually a better long-term operational boundary.
-
-The recommended model is deployment-time synchronization, not request-time synchronization:
+The recommended synchronization model:
 
 ```text
-design-system release
-  -> publish immutable contract artifact and checksum
-  -> update artifact index
-deployment pipeline or init step
-  -> select supported contract versions
-  -> download and verify artifacts
-  -> unpack into local read-only cache
+Design system release
+  → Publish immutable contract artifact + checksum
+  → Update artifact index
+Deployment pipeline or init step
+  → Select supported contract versions
+  → Download and verify artifacts
+  → Unpack into local read-only cache
 MCP runtime
-  -> resolve from local cache only
+  → Resolve contracts from local cache
 ```
 
-This avoids network variability during AI tool calls and makes generated context reproducible.
+Capabilities worth adding:
 
-Likely additions:
+- An artifact index that tracks which versions are supported, latest, and deprecated
+- Sync by explicit version, version range, or supported set
+- Retention/cleanup rules for old local cache entries (prevent unbounded growth)
+- Object-storage artifact sources in addition to GitHub Releases
+- Deployment checks that required contract versions are present and ready
+- Clear release criteria: publish a new AI contract whenever generated code shape, supported props, token policy, or validation rules change
 
-- an artifact index that records supported, latest, and deprecated contract versions,
-- sync by explicit version, version range, or supported set,
-- retention rules for old local cache entries,
-- support for an object-storage artifact source in addition to GitHub Releases,
-- deployment checks that fail fast when required contract versions are missing,
-- a design-system release gate that only publishes a new AI contract when external AI usage behavior changes.
+---
 
-Bug fixes or internal style changes in the design system should not require new contract artifacts unless they change generated code shape, supported props, token policy, validation rules, or documented AI usage guidance.
+## 4. MCP Deployment
 
-## Summary
+### Current State
 
-The MVP demonstrates the core contract-first MCP workflow: resolve bounded design context, map it to component contracts, build generation context, and validate generated React. A real internal product would mostly add integration boundaries around it: live design context, authoritative mapping publication, deployment hardening, and durable contract artifact management.
+The repository supports three MCP entrypoints:
 
-Those additions should be driven by concrete platform requirements. Until then, the server should remain small, read-only during normal tool calls, and explicit about what it does not own.
+- `npm run mcp:server` — stdio for local debugging
+- `npm run mcp:http` — Streamable HTTP
+- `npm run mcp:https` — Node-managed TLS for environments that need it
+
+HTTP and HTTPS share the same server factory, request handler, contract resolver, health check, host filtering, browser-origin filtering, and structured stderr logs. `MCP_AUTH_MODE=external` signals that authentication is handled by an upstream platform component.
+
+### Product Path
+
+For internal use, the server typically sits behind an enterprise gateway, internal platform, allowlisted cloud service, or private network boundary. That platform layer usually owns TLS termination, authentication, authorization, request logging, secret management, log retention, and policy integration.
+
+Once you have a deployment target in mind, useful additions include:
+
+- A Dockerfile and deployment example for that specific environment
+- A startup or init step that handles contract synchronization automatically
+- Readiness checks that confirm required contract versions are loaded before serving traffic
+- Platform-specific log and metrics integration
+- Explicit allowlists for hosts and browser origins
+- Smoke tests against the deployed endpoint
+
+---
+
+## 5. Validation And User Feedback
+
+### Current State
+
+The validator checks generated React against the resolved component contracts and expected component usage from the context pack. It reports:
+
+- Import package mismatches
+- Props that aren't in the adapted contract
+- Forbidden prop usage
+- Missing mapped component coverage
+- Raw color literals
+
+Local validation commands and MCP validation responses expose the full chain: design → mapping → contract → code → validation result.
+
+### Product Path
+
+Building on the same contract-first foundation, a real internal product can layer in richer validation and review signals:
+
+- TypeScript compilation and lint checks for generated code
+- Accessibility (a11y) checks for supported patterns
+- Visual regression checks for selected high-value workflows
+- Centrally retained validation records when platform policy requires audit trails
+- User-facing explanations that connect each validation failure back to the specific source contract, mapping, or pattern rule that triggered it
+- Review queues for frames that lack mapping coverage or have stale mappings
+
+---
+
+## Implementation Sequence
+
+Here's a practical, incremental path from the current mock-data setup to a production Figma-to-Code workflow:
+
+1. **Keep the mock pipeline** — Retain the local fixtures as a reproducible test baseline for the MCP logic.
+2. **Abstract the data source** — Add a design context provider interface alongside the fixture reader, so swapping in a real Figma MCP client requires minimal changes.
+3. **Wire up real Code Connect mappings** — Replace the static manifest with real Code Connect mapping data published from the design system.
+4. **Automate contract sync** — Move contract synchronization into setup, deployment, or process startup so it happens automatically.
+5. **Deploy behind your platform** — Put the HTTP or HTTPS MCP entrypoint behind your internal platform/gateway.
+6. **Add downstream checks** — Layer in TypeScript, accessibility, and visual checks at the point where generated React enters review.
+
+Throughout all these stages, the core MCP workflow stays the same: resolve design context, map it to component contracts, build a generation context pack, guide code generation via the contract, and validate the result. Keeping this chain clear and explicit is what makes the whole system maintainable as it grows.

@@ -1,5 +1,5 @@
 // @ts-nocheck
-// Intentional invalid sample used to demonstrate validator failures.
+// Invalid sample used to demonstrate validator failures.
 import { Button } from "@not-hugo-ui/mui";
 
 export function InvalidGeneratedUsage() {
